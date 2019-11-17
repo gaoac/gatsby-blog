@@ -18,6 +18,7 @@ class BlogIndex extends React.Component {
         <Bio />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
+          const tags = node.frontmatter.tags || []
           return (
             <article key={node.fields.slug}>
               <header>
@@ -30,7 +31,8 @@ class BlogIndex extends React.Component {
                     {title}
                   </Link>
                 </h3>
-                <small>{node.frontmatter.date}</small>
+                <small>{node.frontmatter.date}&nbsp;
+                  {tags.join(' ')}</small>
               </header>
               <section>
                 <p
@@ -67,6 +69,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            tags
           }
         }
       }

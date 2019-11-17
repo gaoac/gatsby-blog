@@ -13,6 +13,7 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.markdownRemark
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
+    const tags = post.frontmatter.tags || []
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -38,6 +39,8 @@ class BlogPostTemplate extends React.Component {
               }}
             >
               {post.frontmatter.date}
+              &nbsp;
+              {tags.join(" ")}
             </p>
           </header>
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -99,6 +102,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        tags
       }
     }
   }
