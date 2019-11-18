@@ -57,7 +57,10 @@ const Bio = () => {
         Written by <strong>{author}</strong> who lives and works in San
         Francisco building useful things.
         {` `}
-        <a href={`https://www.jianshu.com/u/${social.jianshu}`}>
+        <a
+          href={`https://www.jianshu.com/u/${social.jianshu}`}
+          target="_blank "
+        >
           You should follow him on 简书
         </a>
       </p>
