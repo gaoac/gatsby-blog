@@ -31,8 +31,10 @@ class BlogIndex extends React.Component {
                     {title}
                   </Link>
                 </h3>
-                <small>{node.frontmatter.date}&nbsp;
-                  {tags.join(' ')}</small>
+                <small>
+                  {node.frontmatter.date}&nbsp;
+                  {tags.join(" ")}
+                </small>
               </header>
               <section>
                 <p
