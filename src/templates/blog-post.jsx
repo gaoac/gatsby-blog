@@ -11,25 +11,28 @@ import './blog-post.less';
 
 class BlogPostTemplate extends React.Component {
   render() {
+    debugger;
     const {
       data: {
-        markdownRemark: { post },
+        markdownRemark: {
+          frontmatter: { date, tags, title, description },
+          excerpt,
+          html,
+          tableOfContents,
+        },
         site: {
           siteMetadata: { title: siteTitle },
         },
-        pageContext: { previous, next },
       },
+      pageContext: { previous, next },
       location,
     } = this.props;
 
-    const tags = post.frontmatter.tags || [];
+    const theTags = tags || [];
 
     return (
       <Layout location={location} title={siteTitle}>
-        <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
-        />
+        <SEO title={title} description={description || excerpt} />
         <article>
           <header className="header">
             <h1
@@ -38,7 +41,7 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: 0,
               }}
             >
-              {post.frontmatter.title}
+              {title}
             </h1>
             <p
               style={{
@@ -47,14 +50,14 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
-              {post.frontmatter.date}
+              {date}
               &nbsp;
-              {tags.join(' ')}
+              {theTags.join(' ')}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          <section dangerouslySetInnerHTML={{ __html: html }} />
           <div className="toc-affix">
-            <div dangerouslySetInnerHTML={{ __html: post.tableOfContents }} />
+            <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
           </div>
           <hr
             style={{
