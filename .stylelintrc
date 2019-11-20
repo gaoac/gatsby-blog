@@ -1,0 +1,12 @@
+{
+  "plugins": ["stylelint-prettier"],
+  "extends": ["stylelint-prettier/recommended"],
+  "rules": {
+    "prettier/prettier": true,
+    "declaration-empty-line-before": null,
+    "no-descending-specificity": null,
+    "selector-pseudo-class-no-unknown": null,
+    "selector-pseudo-element-colon-notation": null,
+    "block-no-empty": true
+  }
+}
