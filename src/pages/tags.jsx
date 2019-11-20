@@ -1,13 +1,13 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react';
 
 // Utilities
-import kebabCase from "lodash/kebabCase"
+// eslint-disable-next-line import/no-extraneous-dependencies
+import kebabCase from 'lodash/kebabCase';
 
 // Components
-import { Helmet } from "react-helmet"
-import { Link, graphql } from "gatsby"
-import Layout from "../components/layout"
+import { Helmet } from 'react-helmet';
+import { Link, graphql } from 'gatsby';
+import Layout from '../components/Layout';
 
 const TagsPage = ({
   data: {
@@ -32,27 +32,9 @@ const TagsPage = ({
       </ul>
     </div>
   </Layout>
-)
+);
 
-TagsPage.propTypes = {
-  data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
-      group: PropTypes.arrayOf(
-        PropTypes.shape({
-          fieldValue: PropTypes.string.isRequired,
-          totalCount: PropTypes.number.isRequired,
-        }).isRequired
-      ),
-    }),
-    site: PropTypes.shape({
-      siteMetadata: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-      }),
-    }),
-  }),
-}
-
-export default TagsPage
+export default TagsPage;
 
 export const pageQuery = graphql`
   query {
@@ -68,4 +50,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

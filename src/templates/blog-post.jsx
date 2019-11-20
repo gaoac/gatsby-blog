@@ -1,22 +1,31 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+/* eslint-disable react/no-danger */
+import React from 'react';
+import { Link, graphql } from 'gatsby';
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+import Bio from '../components/Bio';
+import Layout from '../components/Layout';
+import SEO from '../components/SEO';
+import { rhythm, scale } from '../utils/typography';
 
-import "./blog-post.less"
+import './blog-post.less';
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
-    const { previous, next } = this.props.pageContext
-    const tags = post.frontmatter.tags || []
+    const {
+      data: {
+        markdownRemark: { post },
+        site: {
+          siteMetadata: { title: siteTitle },
+        },
+        pageContext: { previous, next },
+      },
+      location,
+    } = this.props;
+
+    const tags = post.frontmatter.tags || [];
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={location} title={siteTitle}>
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
@@ -40,7 +49,7 @@ class BlogPostTemplate extends React.Component {
             >
               {post.frontmatter.date}
               &nbsp;
-              {tags.join(" ")}
+              {tags.join(' ')}
             </p>
           </header>
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -84,11 +93,11 @@ class BlogPostTemplate extends React.Component {
           </ul>
         </nav>
       </Layout>
-    )
+    );
   }
 }
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
@@ -110,4 +119,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
