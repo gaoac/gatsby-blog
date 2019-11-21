@@ -30,10 +30,14 @@ class BlogPostTemplate extends React.Component {
             }
             return item;
           });
+
+          tocTitleArray.map(item => {
+            item.classList.remove('active');
+            return item;
+          });
           tocTitleArray.map(item => {
             if (item.textContent.toLocaleLowerCase() === this.textContent.toLocaleLowerCase()) {
               item.classList.add('active');
-              // item.classList.remove('active');
             }
             return item;
           });
