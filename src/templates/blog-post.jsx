@@ -10,8 +10,42 @@ import { rhythm, scale } from '../utils/typography';
 import './blog-post.less';
 
 class BlogPostTemplate extends React.Component {
+  ticking = false;
+
+  textContent = '';
+
+  componentDidMount() {
+    window.addEventListener('scroll', () => {
+      if (!this.ticking) {
+        window.requestAnimationFrame(() => {
+          const { scrollTop } = document.documentElement;
+          const title = document.querySelectorAll('#article a');
+          const titleArray = [].slice.call(title);
+          const tocTitle = document.querySelectorAll('#toc-affix li a');
+          const tocTitleArray = [].slice.call(tocTitle);
+          titleArray.map(item => {
+            if (item.parentNode.offsetTop <= scrollTop) {
+              const { textContent } = item.parentNode;
+              this.textContent = textContent;
+            }
+            return item;
+          });
+          tocTitleArray.map(item => {
+            if (item.textContent.toLocaleLowerCase() === this.textContent.toLocaleLowerCase()) {
+              item.classList.add('active');
+              // item.classList.remove('active');
+            }
+            return item;
+          });
+
+          this.ticking = false;
+        });
+      }
+      this.ticking = true;
+    });
+  }
+
   render() {
-    debugger;
     const {
       data: {
         markdownRemark: {
@@ -55,8 +89,8 @@ class BlogPostTemplate extends React.Component {
               {theTags.join(' ')}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: html }} />
-          <div className="toc-affix">
+          <section id="article" dangerouslySetInnerHTML={{ __html: html }} />
+          <div id="toc-affix" className="toc-affix">
             <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
           </div>
           <hr
