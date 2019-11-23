@@ -10,22 +10,23 @@ class Layout extends React.Component {
     const { title, children } = this.props;
 
     return (
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
+      <>
         <Header title={title} />
-
-        <main className="main">{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
+        <div
+          style={{
+            marginLeft: `auto`,
+            marginRight: `auto`,
+            maxWidth: rhythm(24),
+            padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          }}
+        >
+          <main className="main">{children}</main>
+          <footer>
+            © {new Date().getFullYear()}, Built with
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </footer>
+        </div>
+      </>
     );
   }
 }

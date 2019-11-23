@@ -1,79 +1,173 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
-class Header extends React.Component {
-  componentDidMount() {
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(
-      document.querySelectorAll('.navbar-burger'),
-      0,
-    );
+const useStyles = makeStyles(theme => ({
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: 200,
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+}));
 
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
-      // Add a click event on each of them
-      $navbarBurgers.forEach(el => {
-        el.addEventListener('click', () => {
-          // Get the target from the "data-target" attribute
-          const { target } = el.dataset;
-          const $target = document.getElementById(target);
+export default function PrimarySearchAppBar({ title }) {
+  const classes = useStyles();
+  const [setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-          el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-        });
-      });
-    }
-  }
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  render() {
-    const { title } = this.props;
-    return (
-      <header>
-        <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-          <div className="container">
-            <div className="navbar-brand">
-              <a className="navbar-item" href="/">
-                {title}
-              </a>
+  const handleProfileMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
 
-              <a
-                role="button"
-                className="navbar-burger burger"
-                aria-label="menu"
-                aria-expanded="false"
-                data-target="nav-menu"
-              >
-                <span aria-hidden="true" />
-                <span aria-hidden="true" />
-                <span aria-hidden="true" />
-              </a>
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMobileMenuOpen = event => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <Button color="inherit">
+          <Link to="/">首页</Link>
+        </Button>
+      </MenuItem>
+      <MenuItem>
+        <Button color="inherit">
+          <Link to="/tags">标签</Link>
+        </Button>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <Button color="inherit">
+          <Link to="/about">关于</Link>
+        </Button>
+      </MenuItem>
+    </Menu>
+  );
+
+  return (
+    <div className={classes.grow}>
+      <AppBar position="fixed" color="primary">
+        <Toolbar>
+          <Typography className={classes.title} variant="h6" noWrap>
+            {title}
+          </Typography>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
             </div>
-
-            <div id="nav-menu" className="navbar-menu">
-              <div className="navbar-start" />
-
-              <div className="navbar-end">
-                <div className="navbar-item">
-                  <div className="buttons">
-                    <Link className="navbar-item" to="/">
-                      首页
-                    </Link>
-                    <Link className="navbar-item is-hidden-m" to="/tags">
-                      标签
-                    </Link>
-                    <Link className="navbar-item is-hidden-m" to="/about">
-                      关于
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </div>
-        </nav>
-      </header>
-    );
-  }
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            <Button color="inherit">
+              <Link to="/">首页</Link>
+            </Button>
+            <Button color="inherit">
+              <Link to="/tags">标签</Link>
+            </Button>
+            <Button color="inherit">
+              <Link to="/about">关于</Link>
+            </Button>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+    </div>
+  );
 }
-
-export default Header;
