@@ -72,7 +72,7 @@ class BlogPostTemplate extends React.Component {
       <Layout location={location} title={siteTitle}>
         <SEO title={title} description={description || excerpt} />
         <article>
-          <header className="header">
+          <header className="article-header">
             <h1
               style={{
                 marginTop: rhythm(1),
