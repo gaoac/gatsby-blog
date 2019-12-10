@@ -56,7 +56,7 @@ class BlogPostTemplate extends React.Component {
           frontmatter: { date, tags, title, description },
           excerpt,
           html,
-          // tableOfContents,
+          tableOfContents,
         },
         site: {
           siteMetadata: { title: siteTitle },
@@ -94,9 +94,9 @@ class BlogPostTemplate extends React.Component {
             </p>
           </header>
           <section id="article" dangerouslySetInnerHTML={{ __html: html }} />
-          {/* <div id="toc-affix" className="toc-affix">
+          <div id="toc-affix" className="toc-affix">
             <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
-          </div> */}
+          </div>
           <hr
             style={{
               marginBottom: rhythm(1),

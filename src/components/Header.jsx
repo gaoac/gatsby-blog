@@ -11,6 +11,7 @@ class Header extends React.Component {
           <div className="site-brand-wrapper">
             <div className="site-meta">
               <div className="site-title">{title}</div>
+              <p className="site-subtitle">Personal notes</p>
             </div>
           </div>
         </div>
