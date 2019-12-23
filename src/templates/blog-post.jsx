@@ -19,8 +19,8 @@ class BlogPostTemplate extends React.Component {
     requestAnimationFrame(() => {
       const gitment = new Gitment({
         id: window.location.pathname, // optional
-        owner: '15978393',
-        repo: 'https://github.com/gaoac/gatsby-blog.git',
+        owner: 'gaoac',
+        repo: 'gatsby-blog',
         oauth: {
           client_id: '49e6a0cde9f8f4557516',
           client_secret: '4bd18be58390a8af54f6aacdc943c59e8701d74f',
