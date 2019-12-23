@@ -6,9 +6,20 @@
 }
 .toc-affix {
   position: fixed;
-  top: 16px;
+  top: 80px;
   right: 20px;
-}
-.active {
-  color: red;
+  width: 10vw;
+  overflow: auto;
+  border-left: 1px solid #000;
+  li {
+    list-style: none;
+    a {
+      text-decoration: none;
+    }
+  }
+  .active {
+    color: red;
+    padding-left: 16px;
+    border-left: 4px solid rgb(97, 218, 251);
+  }
 }

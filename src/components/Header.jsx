@@ -1,42 +1,69 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
+import Image from 'gatsby-image';
+
+import { rhythm } from '../utils/typography';
 import './Header.less';
 
-class Header extends React.Component {
-  render() {
-    const { title } = this.props;
-    return (
-      <header className="header">
-        <div className="header-inner">
-          <div className="site-brand-wrapper">
-            <div className="site-meta">
-              <div className="site-title">{title}</div>
-              <p className="site-subtitle">Personal notes</p>
-            </div>
-          </div>
-        </div>
-        <nav className="site-nav">
-          <ul className="menu">
-            <li className="menu-item">
-              <Link className="navbar-item" to="/">
-                首页
-              </Link>
-            </li>
-            <li className="menu-item">
-              <Link className="navbar-item is-hidden-m" to="/tags">
-                标签
-              </Link>
-            </li>
-            <li className="menu-item">
-              <Link className="navbar-item is-hidden-m" to="/about">
-                关于
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    );
-  }
-}
+const Header = () => {
+  const data = useStaticQuery(graphql`
+    query HeaderQuery {
+      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+        childImageSharp {
+          fixed(width: 50, height: 50) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+      site {
+        siteMetadata {
+          title
+          author
+        }
+      }
+    }
+  `);
+  const { title, author } = data.site.siteMetadata;
+  return (
+    <header className="header">
+      <div className="site-meta">
+        <Link to="/">
+          <Image
+            fixed={data.avatar.childImageSharp.fixed}
+            alt={author}
+            style={{
+              marginRight: rhythm(1 / 2),
+              marginBottom: 0,
+              minWidth: 50,
+              borderRadius: `100%`,
+            }}
+            imgStyle={{
+              borderRadius: `50%`,
+            }}
+          />
+        </Link>
+        <span className="site-title">{title}</span>
+      </div>
+
+      <ul className="menu">
+        <li className="menu-item">
+          <Link className="navbar-item" to="/">
+            首页
+          </Link>
+        </li>
+        <li className="menu-item">
+          <Link className="navbar-item is-hidden-m" to="/tags">
+            标签
+          </Link>
+        </li>
+        <li className="menu-item">
+          <Link className="navbar-item is-hidden-m" to="/about">
+            关于
+          </Link>
+        </li>
+      </ul>
+    </header>
+  );
+};
 
 export default Header;

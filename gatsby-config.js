@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'deku',
+    title: 'Deku 的个人博客',
     author: 'Gao AnCun',
     description: 'A blog powered by Gatsby.',
     siteUrl: 'https://github.com/gaoac/gatsby-blog',

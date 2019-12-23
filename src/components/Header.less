@@ -1,40 +1,26 @@
 .header {
-  width: 18vw;
+  height: 60px;
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
   .site-meta {
-    background-image: linear-gradient(
-      90deg,
-      #f79533 0,
-      #f37055 15%,
-      #ef4e7b 30%,
-      #a166ab 44%,
-      #5073b8 58%,
-      #1098ad 72%,
-      #07b39b 86%,
-      #6dba82 100%
-    );
-    padding: 20px 0;
-    text-align: center;
-    color: #fff;
+    display: flex;
+    align-items: center;
     .site-title {
-      font-size: 40px;
-      line-height: 80px;
-      letter-spacing: 3px;
-    }
-    .site-subtitle {
-      margin: 0;
-      font-size: 16px;
-      letter-spacing: 1px;
-      padding-bottom: 3px;
     }
   }
 }
 
-.main {
-  // margin-top: 10rem;
-}
 .menu {
-  margin-left: 0;
+  display: flex;
+  margin: 0;
   .menu-item {
     list-style: none;
+    padding: 10px;
   }
 }
