@@ -1,7 +1,8 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-
+import Gitment from 'gitment';
+import 'gitment/style/default.css';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
@@ -15,6 +16,22 @@ class BlogPostTemplate extends React.Component {
   textContent = '';
 
   componentDidMount() {
+    requestAnimationFrame(() => {
+      const gitment = new Gitment({
+        id: window.location.pathname, // optional
+        owner: '15978393',
+        repo: 'https://github.com/gaoac/gatsby-blog.git',
+        oauth: {
+          client_id: '49e6a0cde9f8f4557516',
+          client_secret: '4bd18be58390a8af54f6aacdc943c59e8701d74f',
+        },
+        // ...
+        // For more available options, check out the documentation below
+      });
+
+      gitment.render('comments');
+    });
+
     window.addEventListener('scroll', () => {
       if (!this.ticking) {
         window.requestAnimationFrame(() => {
@@ -106,7 +123,7 @@ class BlogPostTemplate extends React.Component {
             <Bio />
           </footer>
         </article>
-
+        <div id="comments" />
         <nav>
           <ul
             style={{
