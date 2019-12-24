@@ -2,13 +2,13 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import dayjs from 'dayjs';
-import Gitment from 'gitment';
-import 'gitment/style/default.css';
+import Gitalk from 'gitalk';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { rhythm, scale } from '../utils/typography';
 
+import 'gitalk/dist/gitalk.css';
 import './blog-post.less';
 
 class BlogPostTemplate extends React.Component {
@@ -25,17 +25,18 @@ class BlogPostTemplate extends React.Component {
           },
         },
       } = this.props;
-      const gitment = new Gitment({
-        id: dayjs(date).valueOf(), // optional
-        owner: 'gaoac',
+
+      const gitalk = new Gitalk({
+        clientID: '05484176953aa83cc017',
+        clientSecret: '0f9428612865ebbcc1d23d01bf581e6c002476ad',
         repo: 'gatsbyBlogComments',
-        oauth: {
-          client_id: '05484176953aa83cc017',
-          client_secret: '0f9428612865ebbcc1d23d01bf581e6c002476ad',
-        },
+        owner: 'gaoac',
+        admin: ['gaoac'],
+        id: String(dayjs(date).valueOf()),
+        distractionFreeMode: false,
       });
 
-      gitment.render('comments');
+      gitalk.render('comments');
     });
 
     window.addEventListener('scroll', () => {
