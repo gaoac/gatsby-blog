@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import dayjs from 'dayjs';
 import Gitment from 'gitment';
 import 'gitment/style/default.css';
 import Bio from '../components/Bio';
@@ -17,16 +18,21 @@ class BlogPostTemplate extends React.Component {
 
   componentDidMount() {
     requestAnimationFrame(() => {
-      const gitment = new Gitment({
-        id: window.location.pathname, // optional
-        owner: 'gaoac',
-        repo: 'gatsby-blog',
-        oauth: {
-          client_id: '49e6a0cde9f8f4557516',
-          client_secret: '4bd18be58390a8af54f6aacdc943c59e8701d74f',
+      const {
+        data: {
+          markdownRemark: {
+            frontmatter: { date },
+          },
         },
-        // ...
-        // For more available options, check out the documentation below
+      } = this.props;
+      const gitment = new Gitment({
+        id: dayjs(date).valueOf(), // optional
+        owner: 'gaoac',
+        repo: 'gatsbyBlogComments',
+        oauth: {
+          client_id: '05484176953aa83cc017',
+          client_secret: '0f9428612865ebbcc1d23d01bf581e6c002476ad',
+        },
       });
 
       gitment.render('comments');
@@ -105,7 +111,7 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
-              {date}
+              {dayjs(date).format('YYYY-MM-DD')}
               &nbsp;
               {theTags.join(' ')}
             </p>
@@ -171,7 +177,7 @@ export const pageQuery = graphql`
       tableOfContents
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date
         description
         tags
       }
