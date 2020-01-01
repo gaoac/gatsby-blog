@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import dayjs from 'dayjs';
-import '../../static/iconfont';
+import { Clock, Tag } from 'react-feather';
 import 'hover.css/css/hover-min.css';
 import './index.less';
 
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Icon from '../components/Icon';
 import { rhythm } from '../utils/typography';
 
 class BlogIndex extends React.Component {
@@ -40,13 +39,15 @@ class BlogIndex extends React.Component {
                   </Link>
                 </h3>
                 <small className="post-meta">
-                  <Icon type="icon-time" />
+                  <Clock size={16} style={{ verticalAlign: 'middle' }} />
                   &nbsp;
-                  {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
+                  <span style={{ verticalAlign: 'sub' }}>
+                    {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
+                  </span>
                   &nbsp; &nbsp;
-                  <Icon type="icon-tag" />
+                  <Tag size={16} style={{ verticalAlign: 'middle' }} />
                   &nbsp;
-                  {tags.join(' ')}
+                  <span style={{ verticalAlign: 'sub' }}>{tags.join(' ')}</span>
                 </small>
               </header>
               <section>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
+import { Camera } from 'react-feather';
 
 import { rhythm } from '../utils/typography';
-import Icon from './Icon';
 import './Header.less';
 
 const Header = () => {
@@ -53,7 +53,7 @@ const Header = () => {
       {isMobile ? (
         <>
           <div onClick={() => setMenuVisible(!menuVisible)}>
-            <Icon type="icon-menu" className="mobile-menu-icon" />
+            <Camera color="red" size={48} />
             {menuVisible ? (
               <li className="mobile-menu-li">
                 <li className="menu-item">

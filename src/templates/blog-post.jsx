@@ -3,10 +3,10 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import dayjs from 'dayjs';
 import Gitalk from 'gitalk';
+import { Clock, Tag } from 'react-feather';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Icon from '../components/Icon';
 import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
@@ -113,11 +113,11 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
-              <Icon type="icon-time" />
-              {dayjs(date).format('YYYY-MM-DD')}
+              <Clock size={16} style={{ verticalAlign: 'middle' }} />
+              <span style={{ verticalAlign: 'sub' }}>{dayjs(date).format('YYYY-MM-DD')}</span>
               &nbsp;
-              <Icon type="icon-tag" />
-              {theTags.join(' ')}
+              <Tag size={16} style={{ verticalAlign: 'middle' }} />
+              <span style={{ verticalAlign: 'sub' }}>{theTags.join(' ')}</span>
             </p>
           </header>
           <section id="article" dangerouslySetInnerHTML={{ __html: html }} />
