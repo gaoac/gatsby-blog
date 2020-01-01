@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import dayjs from 'dayjs';
+import '../../static/iconfont';
+import 'hover.css/css/hover-min.css';
+import './index.less';
 
-// import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import Icon from '../components/Icon';
 import { rhythm } from '../utils/typography';
 
 class BlogIndex extends React.Component {
@@ -20,19 +24,27 @@ class BlogIndex extends React.Component {
           const title = node.frontmatter.title || node.fields.slug;
           const tags = node.frontmatter.tags || [];
           return (
-            <article key={node.fields.slug}>
-              <header>
+            <article key={node.fields.slug} className="blog-acticle">
+              <header className="blog-index-header">
                 <h3
                   style={{
                     marginBottom: rhythm(1 / 4),
                   }}
                 >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                  <Link
+                    className="blog-index-title hvr-underline-from-center"
+                    style={{ boxShadow: `none` }}
+                    to={node.fields.slug}
+                  >
                     {title}
                   </Link>
                 </h3>
-                <small>
-                  {node.frontmatter.date}
+                <small className="post-meta">
+                  <Icon type="icon-time" />
+                  &nbsp;
+                  {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
+                  &nbsp; &nbsp;
+                  <Icon type="icon-tag" />
                   &nbsp;
                   {tags.join(' ')}
                 </small>
@@ -44,6 +56,15 @@ class BlogIndex extends React.Component {
                     __html: node.frontmatter.description || node.excerpt,
                   }}
                 />
+                <div className="post-button">
+                  <Link
+                    className="btn hvr-grow-shadow"
+                    style={{ boxShadow: `none` }}
+                    to={node.fields.slug}
+                  >
+                    阅读全文 »
+                  </Link>
+                </div>
               </section>
             </article>
           );
@@ -70,7 +91,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date
             title
             description
             tags

@@ -1,8 +1,5 @@
 .article-header {
   color: @text-color;
-  p {
-    color: red;
-  }
 }
 .toc-affix {
   position: fixed;
@@ -14,6 +11,7 @@
   li {
     list-style: none;
     a {
+      color: #555;
       text-decoration: none;
     }
   }
@@ -21,5 +19,11 @@
     color: red;
     padding-left: 16px;
     border-left: 4px solid rgb(97, 218, 251);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .toc-affix {
+    display: none;
   }
 }

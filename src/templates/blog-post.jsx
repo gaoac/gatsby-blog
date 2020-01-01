@@ -6,6 +6,7 @@ import Gitalk from 'gitalk';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import Icon from '../components/Icon';
 import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
@@ -112,8 +113,10 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
+              <Icon type="icon-time" />
               {dayjs(date).format('YYYY-MM-DD')}
               &nbsp;
+              <Icon type="icon-tag" />
               {theTags.join(' ')}
             </p>
           </header>

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
 
 import { rhythm } from '../utils/typography';
+import Icon from './Icon';
 import './Header.less';
 
 const Header = () => {
+  const [menuVisible, setMenuVisible] = useState(false);
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
@@ -24,6 +26,9 @@ const Header = () => {
     }
   `);
   const { title, author } = data.site.siteMetadata;
+  const { clientWidth } = document.body;
+  const isMobile = clientWidth <= 500;
+
   return (
     <header className="header">
       <div className="site-meta">
@@ -42,26 +47,41 @@ const Header = () => {
             }}
           />
         </Link>
-        <span className="site-title">{title}</span>
+        <span>{title}</span>
       </div>
 
-      <ul className="menu">
-        <li className="menu-item">
-          <Link className="navbar-item" to="/">
-            首页
-          </Link>
+      {isMobile ? (
+        <>
+          <div onClick={() => setMenuVisible(!menuVisible)}>
+            <Icon type="icon-menu" className="mobile-menu-icon" />
+            {menuVisible ? (
+              <li className="mobile-menu-li">
+                <li className="menu-item">
+                  <Link to="/">首页</Link>
+                </li>
+                <li className="menu-item">
+                  <Link to="/tags">标签</Link>
+                </li>
+                <li className="menu-item">
+                  <Link to="/about">关于</Link>
+                </li>
+              </li>
+            ) : null}
+          </div>
+        </>
+      ) : (
+        <li className="menu">
+          <li className="menu-item">
+            <Link to="/">首页</Link>
+          </li>
+          <li className="menu-item">
+            <Link to="/tags">标签</Link>
+          </li>
+          <li className="menu-item">
+            <Link to="/about">关于</Link>
+          </li>
         </li>
-        <li className="menu-item">
-          <Link className="navbar-item is-hidden-m" to="/tags">
-            标签
-          </Link>
-        </li>
-        <li className="menu-item">
-          <Link className="navbar-item is-hidden-m" to="/about">
-            关于
-          </Link>
-        </li>
-      </ul>
+      )}
     </header>
   );
 };
