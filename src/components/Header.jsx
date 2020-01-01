@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { Camera } from 'react-feather';
+import { Menu } from 'react-feather';
 
 import { rhythm } from '../utils/typography';
 import './Header.less';
 
 const Header = () => {
+  let isMobile = false;
   const [menuVisible, setMenuVisible] = useState(false);
   const data = useStaticQuery(graphql`
     query HeaderQuery {
@@ -26,8 +27,22 @@ const Header = () => {
     }
   `);
   const { title, author } = data.site.siteMetadata;
-  const { clientWidth } = document.body;
-  const isMobile = clientWidth <= 500;
+  const inBrowser = typeof window !== 'undefined';
+
+  // eslint-disable-next-line no-undef
+  const inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
+  // eslint-disable-next-line no-undef
+  const weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
+
+  const UA = inBrowser && window.navigator.userAgent.toLowerCase();
+
+  const isAndroid = (UA && UA.indexOf('android') > 0) || weexPlatform === 'android';
+  const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios';
+
+  if (isAndroid || isIOS) {
+    const { clientWidth } = document.body;
+    isMobile = clientWidth <= 500;
+  }
 
   return (
     <header className="header">
@@ -53,24 +68,24 @@ const Header = () => {
       {isMobile ? (
         <>
           <div onClick={() => setMenuVisible(!menuVisible)}>
-            <Camera color="red" size={48} />
-            {menuVisible ? (
-              <li className="mobile-menu-li">
-                <li className="menu-item">
-                  <Link to="/">首页</Link>
-                </li>
-                <li className="menu-item">
-                  <Link to="/tags">标签</Link>
-                </li>
-                <li className="menu-item">
-                  <Link to="/about">关于</Link>
-                </li>
-              </li>
-            ) : null}
+            <Menu />
           </div>
+          {menuVisible ? (
+            <ul className="mobile-menu-li">
+              <li className="menu-item">
+                <Link to="/">首页</Link>
+              </li>
+              <li className="menu-item">
+                <Link to="/tags">标签</Link>
+              </li>
+              <li className="menu-item">
+                <Link to="/about">关于</Link>
+              </li>
+            </ul>
+          ) : null}
         </>
       ) : (
-        <li className="menu">
+        <ul className="menu">
           <li className="menu-item">
             <Link to="/">首页</Link>
           </li>
@@ -80,7 +95,7 @@ const Header = () => {
           <li className="menu-item">
             <Link to="/about">关于</Link>
           </li>
-        </li>
+        </ul>
       )}
     </header>
   );
