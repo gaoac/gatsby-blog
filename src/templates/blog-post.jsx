@@ -16,6 +16,7 @@ const SCHeader = styled.header`
 `;
 
 const SCSection = styled.section`
+  text-align: justify;
   td,
   th {
     padding: 8px;
