@@ -15,6 +15,13 @@ const SCHeader = styled.header`
   color: green;
 `;
 
+const SCSection = styled.section`
+  td,
+  th {
+    padding: 8px;
+  }
+`;
+
 const SCTocAffix = styled.div`
   position: fixed;
   top: 80px;
@@ -135,7 +142,7 @@ const BlogPostTemplate = ({
             <span style={{ verticalAlign: 'sub' }}>{theTags.join(' ')}</span>
           </p>
         </SCHeader>
-        <section id="article" dangerouslySetInnerHTML={{ __html: html }} />
+        <SCSection id="article" dangerouslySetInnerHTML={{ __html: html }} />
         <SCTocAffix id="toc-affix">
           <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
         </SCTocAffix>
@@ -144,10 +151,6 @@ const BlogPostTemplate = ({
             marginBottom: rhythm(1),
           }}
         />
-
-        {/* <footer>
-            <Bio />
-          </footer> */}
       </article>
       <div id="comments" />
       <nav>
