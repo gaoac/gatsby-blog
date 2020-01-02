@@ -4,13 +4,41 @@ import { Link, graphql } from 'gatsby';
 import dayjs from 'dayjs';
 import Gitalk from 'gitalk';
 import { Clock, Tag } from 'react-feather';
+import styled from 'styled-components';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
-import './blog-post.less';
+
+const SCHeader = styled.header`
+  color: green;
+`;
+
+const SCTocAffix = styled.div`
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 240px;
+  overflow: auto;
+  border-left: 1px solid #000;
+  li {
+    list-style: none;
+    a {
+      color: #555;
+      text-decoration: none;
+    }
+  }
+  .active {
+    color: red;
+    padding-left: 16px;
+    border-left: 4px solid rgb(97, 218, 251);
+  }
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+`;
 
 class BlogPostTemplate extends React.Component {
   ticking = false;
@@ -97,7 +125,7 @@ class BlogPostTemplate extends React.Component {
       <Layout location={location} title={siteTitle}>
         <SEO title={title} description={description || excerpt} />
         <article>
-          <header className="article-header">
+          <SCHeader>
             <h1
               style={{
                 marginTop: rhythm(1),
@@ -119,16 +147,17 @@ class BlogPostTemplate extends React.Component {
               <Tag size={16} style={{ verticalAlign: 'middle' }} />
               <span style={{ verticalAlign: 'sub' }}>{theTags.join(' ')}</span>
             </p>
-          </header>
+          </SCHeader>
           <section id="article" dangerouslySetInnerHTML={{ __html: html }} />
-          <div id="toc-affix" className="toc-affix">
+          <SCTocAffix id="toc-affix">
             <div dangerouslySetInnerHTML={{ __html: tableOfContents }} />
-          </div>
+          </SCTocAffix>
           <hr
             style={{
               marginBottom: rhythm(1),
             }}
           />
+
           <footer>
             <Bio />
           </footer>

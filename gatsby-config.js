@@ -76,14 +76,6 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-less',
-      options: {
-        modifyVars: {
-          'text-color': 'green',
-        },
-      },
-    },
-    {
       resolve: 'gatsby-plugin-eslint',
       options: {
         test: /\.js$|\.jsx$/,
@@ -93,6 +85,12 @@ module.exports = {
           emitWarning: true,
           failOnError: false,
         },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        displayName: false,
       },
     },
   ],

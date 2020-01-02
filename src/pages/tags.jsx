@@ -3,12 +3,16 @@ import React from 'react';
 // Utilities
 // eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';
+import styled from 'styled-components';
 
 // Components
 import { Helmet } from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import Layout from '../components/Layout';
-import './tags.less';
+
+const SCLink = styled(Link)`
+  text-decoration: none !important;
+`;
 
 const TagsPage = ({
   data: {
@@ -25,12 +29,12 @@ const TagsPage = ({
       <ul>
         {group.map(tag => (
           <li key={tag.fieldValue}>
-            <Link
+            <SCLink
               to={`/tags/${kebabCase(tag.fieldValue)}/`}
-              className="tag hvr-underline-from-center"
+              className="hvr-underline-from-center"
             >
               {tag.fieldValue} ({tag.totalCount})
-            </Link>
+            </SCLink>
           </li>
         ))}
       </ul>

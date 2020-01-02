@@ -2,9 +2,82 @@ import React, { useState } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import { Menu } from 'react-feather';
+import styled from 'styled-components';
 
 import { rhythm } from '../utils/typography';
-import './Header.less';
+
+const SCHeader = styled.header`
+  height: 60px;
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  z-index: 1;
+  .site-meta {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const SCMenuUl = styled.ul`
+  display: flex;
+  margin: 0;
+`;
+
+const SCMenuLi = styled.li`
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  height: 60px;
+  line-height: 60px;
+  min-width: 72px;
+  border-top: 2px solid transparent;
+  &:hover {
+    border-top: 2px solid #1890ff;
+    border-bottom: 2px solid transparent;
+  }
+`;
+
+const SCLink = styled(Link)`
+  display: block;
+  color: #555;
+  text-decoration: none;
+  &:hover {
+    color: #1890ff;
+    text-decoration: none;
+  }
+`;
+
+const SCMobileMenuUl = styled.ul`
+  top: 60px;
+  position: absolute;
+  right: 0vw;
+  width: 100vw;
+  list-style: none;
+  margin: 0;
+  padding: 4px 10px;
+  text-align: left;
+  list-style-type: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+`;
+const SCMobileMenuLi = styled.li`
+  a {
+    display: block;
+    color: #555;
+    text-decoration: none;
+    &:hover {
+      color: #1890ff;
+    }
+  }
+`;
 
 const Header = () => {
   let isMobile = false;
@@ -45,7 +118,7 @@ const Header = () => {
   }
 
   return (
-    <header className="header">
+    <SCHeader>
       <div className="site-meta">
         <Link to="/">
           <Image
@@ -71,33 +144,33 @@ const Header = () => {
             <Menu />
           </div>
           {menuVisible ? (
-            <ul className="mobile-menu-li">
-              <li className="menu-item">
-                <Link to="/">首页</Link>
-              </li>
-              <li className="menu-item">
-                <Link to="/tags">标签</Link>
-              </li>
-              <li className="menu-item">
-                <Link to="/about">关于</Link>
-              </li>
-            </ul>
+            <SCMobileMenuUl>
+              <SCMobileMenuLi>
+                <SCLink to="/">首页</SCLink>
+              </SCMobileMenuLi>
+              <SCMobileMenuLi>
+                <SCLink to="/tags">标签</SCLink>
+              </SCMobileMenuLi>
+              <SCMobileMenuLi>
+                <SCLink to="/about">关于</SCLink>
+              </SCMobileMenuLi>
+            </SCMobileMenuUl>
           ) : null}
         </>
       ) : (
-        <ul className="menu">
-          <li className="menu-item">
-            <Link to="/">首页</Link>
-          </li>
-          <li className="menu-item">
-            <Link to="/tags">标签</Link>
-          </li>
-          <li className="menu-item">
-            <Link to="/about">关于</Link>
-          </li>
-        </ul>
+        <SCMenuUl>
+          <SCMenuLi className="menu-item">
+            <SCLink to="/">首页</SCLink>
+          </SCMenuLi>
+          <SCMenuLi className="menu-item">
+            <SCLink to="/tags">标签</SCLink>
+          </SCMenuLi>
+          <SCMenuLi className="menu-item">
+            <SCLink to="/about">关于</SCLink>
+          </SCMenuLi>
+        </SCMenuUl>
       )}
-    </header>
+    </SCHeader>
   );
 };
 

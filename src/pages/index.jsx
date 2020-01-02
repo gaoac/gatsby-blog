@@ -2,13 +2,60 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import dayjs from 'dayjs';
 import { Clock, Tag } from 'react-feather';
+import styled from 'styled-components';
 import 'hover.css/css/hover-min.css';
-import './index.less';
 
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { rhythm } from '../utils/typography';
 
+const SCArticle = styled.article`
+  padding: 10px 10px 20px 10px;
+  &:hover {
+    background: #effbff;
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const SCLink = styled(Link)`
+  color: #394d69;
+  box-shadow: none;
+  text-decoration: none !important;
+  &:hover {
+    color: #48b2ff;
+  }
+  .hvr-underline-from-center {
+    &::before {
+      height: 2px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .hvr-underline-from-center {
+      display: contents;
+    }
+  }
+`;
+
+const SCSmall = styled.small`
+  display: block;
+  margin: 10px 0 20px;
+`;
+
+const SCButton = styled.div`
+  text-align: center;
+`;
+const SCButtonLink = styled(Link)`
+  text-decoration: none !important;
+  background-color: #fff;
+  border: 1px solid #da552f;
+  display: inline-block;
+  padding: 4px 10px;
+  color: #da552f;
+
+  @media screen and (max-width: 500px) {
+    display: contents;
+  }
+`;
 class BlogIndex extends React.Component {
   render() {
     const { data, location } = this.props;
@@ -23,22 +70,18 @@ class BlogIndex extends React.Component {
           const title = node.frontmatter.title || node.fields.slug;
           const tags = node.frontmatter.tags || [];
           return (
-            <article key={node.fields.slug} className="blog-acticle">
+            <SCArticle key={node.fields.slug}>
               <header className="blog-index-header">
                 <h3
                   style={{
                     marginBottom: rhythm(1 / 4),
                   }}
                 >
-                  <Link
-                    className="blog-index-title hvr-underline-from-center"
-                    style={{ boxShadow: `none` }}
-                    to={node.fields.slug}
-                  >
+                  <SCLink className="hvr-underline-from-center" to={node.fields.slug}>
                     {title}
-                  </Link>
+                  </SCLink>
                 </h3>
-                <small className="post-meta">
+                <SCSmall>
                   <Clock size={16} style={{ verticalAlign: 'middle' }} />
                   &nbsp;
                   <span style={{ verticalAlign: 'sub' }}>
@@ -48,7 +91,7 @@ class BlogIndex extends React.Component {
                   <Tag size={16} style={{ verticalAlign: 'middle' }} />
                   &nbsp;
                   <span style={{ verticalAlign: 'sub' }}>{tags.join(' ')}</span>
-                </small>
+                </SCSmall>
               </header>
               <section>
                 <p
@@ -57,17 +100,13 @@ class BlogIndex extends React.Component {
                     __html: node.frontmatter.description || node.excerpt,
                   }}
                 />
-                <div className="post-button">
-                  <Link
-                    className="btn hvr-grow-shadow"
-                    style={{ boxShadow: `none` }}
-                    to={node.fields.slug}
-                  >
+                <SCButton>
+                  <SCButtonLink className="hvr-grow-shadow" to={node.fields.slug}>
                     阅读全文 »
-                  </Link>
-                </div>
+                  </SCButtonLink>
+                </SCButton>
               </section>
-            </article>
+            </SCArticle>
           );
         })}
       </Layout>
