@@ -23,9 +23,33 @@ const SCHeader = styled.header`
   }
 `;
 
+const SCMobileMenu = styled.div`
+  display: none;
+  @media screen and (max-width: 500px) {
+    display: block;
+  }
+`;
 const SCMenuUl = styled.ul`
   display: flex;
   margin: 0;
+  @media screen and (max-width: 500px) {
+    display: ${props => (props.show ? 'block' : 'none')};
+    margin: 0;
+    top: 60px;
+    position: absolute;
+    right: 0vw;
+    width: 100vw;
+    list-style: none;
+    margin: 0;
+    padding: 4px 10px;
+    text-align: left;
+    list-style-type: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const SCMenuLi = styled.li`
@@ -40,6 +64,18 @@ const SCMenuLi = styled.li`
     border-top: 2px solid #1890ff;
     border-bottom: 2px solid transparent;
   }
+  @media screen and (max-width: 500px) {
+    list-style: none;
+    margin: 0;
+    padding: 0 20px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 72px;
+    border: 0;
+    &:hover {
+      border: 0;
+    }
+  }
 `;
 
 const SCLink = styled(Link)`
@@ -52,36 +88,11 @@ const SCLink = styled(Link)`
   }
 `;
 
-const SCMobileMenuUl = styled.ul`
-  top: 60px;
-  position: absolute;
-  right: 0vw;
-  width: 100vw;
-  list-style: none;
-  margin: 0;
-  padding: 4px 10px;
-  text-align: left;
-  list-style-type: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  border-radius: 4px;
-  outline: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-`;
-const SCMobileMenuLi = styled.li`
-  a {
-    display: block;
-    color: #555;
-    text-decoration: none;
-    &:hover {
-      color: #1890ff;
-    }
-  }
-`;
-
 const Header = () => {
-  let isMobile = false;
   const [menuVisible, setMenuVisible] = useState(false);
+  const handleChangeMenuVisible = () => {
+    setMenuVisible(!menuVisible);
+  };
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
@@ -100,22 +111,6 @@ const Header = () => {
     }
   `);
   const { title, author } = data.site.siteMetadata;
-  const inBrowser = typeof window !== 'undefined';
-
-  // eslint-disable-next-line no-undef
-  const inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
-  // eslint-disable-next-line no-undef
-  const weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
-
-  const UA = inBrowser && window.navigator.userAgent.toLowerCase();
-
-  const isAndroid = (UA && UA.indexOf('android') > 0) || weexPlatform === 'android';
-  const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios';
-
-  if (isAndroid || isIOS) {
-    const { clientWidth } = document.body;
-    isMobile = clientWidth <= 500;
-  }
 
   return (
     <SCHeader>
@@ -137,39 +132,21 @@ const Header = () => {
         </Link>
         <span>{title}</span>
       </div>
+      <SCMobileMenu onClick={handleChangeMenuVisible}>
+        <Menu />
+      </SCMobileMenu>
 
-      {isMobile ? (
-        <>
-          <div onClick={() => setMenuVisible(!menuVisible)}>
-            <Menu />
-          </div>
-          {menuVisible ? (
-            <SCMobileMenuUl>
-              <SCMobileMenuLi>
-                <SCLink to="/">首页</SCLink>
-              </SCMobileMenuLi>
-              <SCMobileMenuLi>
-                <SCLink to="/tags">标签</SCLink>
-              </SCMobileMenuLi>
-              <SCMobileMenuLi>
-                <SCLink to="/about">关于</SCLink>
-              </SCMobileMenuLi>
-            </SCMobileMenuUl>
-          ) : null}
-        </>
-      ) : (
-        <SCMenuUl>
-          <SCMenuLi className="menu-item">
-            <SCLink to="/">首页</SCLink>
-          </SCMenuLi>
-          <SCMenuLi className="menu-item">
-            <SCLink to="/tags">标签</SCLink>
-          </SCMenuLi>
-          <SCMenuLi className="menu-item">
-            <SCLink to="/about">关于</SCLink>
-          </SCMenuLi>
-        </SCMenuUl>
-      )}
+      <SCMenuUl show={menuVisible}>
+        <SCMenuLi>
+          <SCLink to="/">首页</SCLink>
+        </SCMenuLi>
+        <SCMenuLi>
+          <SCLink to="/tags">标签</SCLink>
+        </SCMenuLi>
+        <SCMenuLi>
+          <SCLink to="/about">关于</SCLink>
+        </SCMenuLi>
+      </SCMenuUl>
     </SCHeader>
   );
 };
