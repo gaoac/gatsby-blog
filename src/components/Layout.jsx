@@ -18,6 +18,7 @@ const SCContent = styled.div`
   }
 `;
 const SCMain = styled.main`
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   display: flex;
@@ -25,6 +26,7 @@ const SCMain = styled.main`
   width: 60vw;
   padding: 2rem 2rem;
   background: #fff;
+
   @media screen and (max-width: 500px) {
     width: 100vw;
   }
