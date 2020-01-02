@@ -34,23 +34,19 @@ const SCFooter = styled.footer`
   justify-content: center;
 `;
 
-class Layout extends React.Component {
-  render() {
-    const { title, children } = this.props;
-
-    return (
-      <SCLayout>
-        <Header title={title} />
-        <SCContent>
-          <SCMain>{children}</SCMain>
-        </SCContent>
-        <SCFooter>
-          © {new Date().getFullYear()}, Built with
-          <a href="https://www.gatsbyjs.org">&nbsp;Gatsby</a>
-        </SCFooter>
-      </SCLayout>
-    );
-  }
-}
+const Layout = ({ title, children }) => {
+  return (
+    <SCLayout>
+      <Header title={title} />
+      <SCContent>
+        <SCMain>{children}</SCMain>
+      </SCContent>
+      <SCFooter>
+        © {new Date().getFullYear()}, Built with
+        <a href="https://www.gatsbyjs.org">&nbsp;Gatsby</a>
+      </SCFooter>
+    </SCLayout>
+  );
+};
 
 export default Layout;

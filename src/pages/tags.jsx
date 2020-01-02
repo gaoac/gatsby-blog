@@ -12,6 +12,11 @@ import Layout from '../components/Layout';
 
 const SCLink = styled(Link)`
   text-decoration: none !important;
+  &.hvr-underline-from-center {
+    &::before {
+      height: 2px;
+    }
+  }
 `;
 
 const TagsPage = ({
