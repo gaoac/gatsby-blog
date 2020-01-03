@@ -1,6 +1,16 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import styled from 'styled-components';
 import Layout from '../components/Layout';
+
+const SCLink = styled(Link)`
+  text-decoration: none !important;
+  &.hvr-underline-from-center {
+    &::before {
+      height: 2px;
+    }
+  }
+`;
 
 // Components
 
@@ -13,7 +23,7 @@ const TagTemplate = ({ pageContext, data }) => {
     allMarkdownRemark,
   } = data;
   const { edges, totalCount } = allMarkdownRemark;
-  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
+  const tagHeader = `${totalCount}篇文章关于 "${tag}"`;
   return (
     <Layout title={siteTitle}>
       <h1>{tagHeader}</h1>
@@ -23,7 +33,9 @@ const TagTemplate = ({ pageContext, data }) => {
           const { title } = node.frontmatter;
           return (
             <li key={slug}>
-              <Link to={slug}>{title}</Link>
+              <SCLink to={slug} className="hvr-underline-from-center">
+                {title}
+              </SCLink>
             </li>
           );
         })}
@@ -32,7 +44,7 @@ const TagTemplate = ({ pageContext, data }) => {
               This links to a page that does not yet exist.
               You'll come back to it!
             */}
-      <Link to="/tags">All tags</Link>
+      <SCLink to="/tags">全部标签</SCLink>
     </Layout>
   );
 };

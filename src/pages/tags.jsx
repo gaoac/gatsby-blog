@@ -30,7 +30,7 @@ const TagsPage = ({
   <Layout title={title}>
     <Helmet title={title} />
     <div>
-      <h1>Tags</h1>
+      <h1>标签</h1>
       <ul>
         {group.map(tag => (
           <li key={tag.fieldValue}>

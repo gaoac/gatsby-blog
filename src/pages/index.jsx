@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import { Clock, Tag } from 'react-feather';
+import { Clock as IconClock, Tag as IconTag } from 'react-feather';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'hover.css/css/hover-min.css';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import Tag from '../components/Tag';
 import { rhythm } from '../utils/typography';
 
 const SCArticle = styled.article`
@@ -38,6 +39,10 @@ const SCLink = styled(Link)`
 const SCSmall = styled.small`
   display: block;
   margin: 10px 0 20px;
+`;
+const SCLabel = styled.span`
+  display: inline-flex;
+  align-items: center;
 `;
 
 const SCButton = styled.div`
@@ -79,15 +84,19 @@ const BlogIndex = ({ data, location }) => {
                 </SCLink>
               </h3>
               <SCSmall>
-                <Clock size={16} style={{ verticalAlign: 'middle' }} />
-                &nbsp;
-                <span style={{ verticalAlign: 'sub' }}>
+                <SCLabel>
+                  <IconClock size={16} />
+                  &nbsp;
                   {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
-                </span>
+                </SCLabel>
                 &nbsp; &nbsp;
-                <Tag size={16} style={{ verticalAlign: 'middle' }} />
-                &nbsp;
-                <span style={{ verticalAlign: 'sub' }}>{tags.join(' ')}</span>
+                <SCLabel>
+                  <IconTag size={16} />
+                  &nbsp;
+                  {tags.map(text => (
+                    <Tag>{text}</Tag>
+                  ))}
+                </SCLabel>
               </SCSmall>
             </header>
             <section>

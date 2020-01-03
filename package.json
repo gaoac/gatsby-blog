@@ -68,12 +68,11 @@
     "url": "https://github.com/gaoac/gatsby-blog.git"
   },
   "scripts": {
-    "start": "gatsby develop --host=0.0.0.0 ",
+    "start": "gatsby develop --host=10.82.17.91 ",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "debug": "node --nolazy --inspect-brk node_modules/.bin/gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "lint:style": "stylelint './src/**/*.jsx'",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   }
 }

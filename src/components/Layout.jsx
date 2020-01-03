@@ -5,7 +5,6 @@ import 'prismjs/themes/prism-tomorrow.css';
 
 const SCLayout = styled.div`
   height: 100vh;
-  width: 100vw;
   display: flex;
   flex-direction: column;
 `;
@@ -44,7 +43,7 @@ const Layout = ({ title, children }) => {
         <SCMain>{children}</SCMain>
       </SCContent>
       <SCFooter>
-        © {new Date().getFullYear()}, Built with
+        © 2019 - {new Date().getFullYear()}, Built with
         <a href="https://www.gatsbyjs.org">&nbsp;Gatsby</a>
       </SCFooter>
     </SCLayout>

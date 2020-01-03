@@ -3,15 +3,21 @@ import React, { useEffect } from 'react';
 import { Link, graphql } from 'gatsby';
 import dayjs from 'dayjs';
 import Gitalk from 'gitalk';
-import { Clock, Tag } from 'react-feather';
+import { Clock as IconClock, Tag as IconTag } from 'react-feather';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import Tag from '../components/Tag';
 import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
 
 const SCHeader = styled.header``;
+
+const SCLabel = styled.span`
+  display: inline-flex;
+  align-items: center;
+`;
 
 const SCSection = styled.section`
   text-align: justify;
@@ -29,7 +35,7 @@ const SCTocAffix = styled.div`
   height: 80vh;
   max-height: calc(100vh - 80px);
   font-size: 14px;
-  overflow: auto;
+  overflow-x: hidden;
   div {
     > ul {
       border-left: 1px solid #d2d2d2;
@@ -55,8 +61,8 @@ const SCTocAffix = styled.div`
         width: 240px;
         color: #555;
         text-decoration: none;
-        font-size: 12px;
-        padding-left: 16px;
+        font-size: 14px;
+        padding: 2px 0 2px 16px;
         white-space: nowrap;
         text-overflow: ellipsis;
         border-left: 1px solid transparent;
@@ -103,8 +109,6 @@ const BlogPostTemplate = ({
   let ticking = false;
 
   let textContent = '';
-
-  const theTags = tags || [];
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -174,13 +178,19 @@ const BlogPostTemplate = ({
               marginBottom: rhythm(1),
             }}
           >
-            <Clock size={16} style={{ verticalAlign: 'middle' }} />
-            &nbsp;
-            <span style={{ verticalAlign: 'sub' }}>{dayjs(date).format('YYYY-MM-DD')}</span>
+            <SCLabel>
+              <IconClock size={16} />
+              &nbsp;
+              {dayjs(date).format('YYYY-MM-DD')}
+            </SCLabel>
             &nbsp;&nbsp;
-            <Tag size={16} style={{ verticalAlign: 'middle' }} />
-            &nbsp;
-            <span style={{ verticalAlign: 'sub' }}>{theTags.join(' ')}</span>
+            <SCLabel>
+              <IconTag size={16} />
+              &nbsp;
+              {tags.map(text => (
+                <Tag>{text}</Tag>
+              ))}
+            </SCLabel>
           </p>
         </SCHeader>
         <SCSection id="article" dangerouslySetInnerHTML={{ __html: html }} />
