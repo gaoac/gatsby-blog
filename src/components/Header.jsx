@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { Menu } from 'react-feather';
+import {
+  Menu as IconMenu,
+  Home as IconHome,
+  Tag as IconTag,
+  User as IconUser,
+} from 'react-feather';
 import styled from 'styled-components';
 
 import { rhythm } from '../utils/typography';
@@ -79,12 +84,16 @@ const SCMenuLi = styled.li`
 `;
 
 const SCLink = styled(Link)`
-  display: block;
+  display: flex;
+  align-items: center;
   color: #555;
   text-decoration: none;
   &:hover {
     color: #1890ff;
     text-decoration: none;
+  }
+  span {
+    padding: 0 6px;
   }
 `;
 
@@ -133,18 +142,27 @@ const Header = () => {
         <span>{title}</span>
       </div>
       <SCMobileMenu onClick={handleChangeMenuVisible}>
-        <Menu />
+        <IconMenu />
       </SCMobileMenu>
 
       <SCMenuUl show={menuVisible}>
         <SCMenuLi>
-          <SCLink to="/">首页</SCLink>
+          <SCLink to="/">
+            <IconHome size={16} />
+            <span>首页</span>
+          </SCLink>
         </SCMenuLi>
         <SCMenuLi>
-          <SCLink to="/tags">标签</SCLink>
+          <SCLink to="/tags">
+            <IconTag size={16} />
+            <span>标签</span>
+          </SCLink>
         </SCMenuLi>
         <SCMenuLi>
-          <SCLink to="/about">关于</SCLink>
+          <SCLink to="/about">
+            <IconUser size={16} />
+            <span>关于</span>
+          </SCLink>
         </SCMenuLi>
       </SCMenuUl>
     </SCHeader>
