@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import 'prismjs/themes/prism-tomorrow.css';
+
 import Header from './Header';
-import 'prismjs/themes/prism.css';
 
 const SCLayout = styled.div`
   height: 100vh;
