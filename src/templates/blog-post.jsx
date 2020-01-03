@@ -25,6 +25,9 @@ const SCSection = styled.section`
   th {
     padding: 8px;
   }
+  .line-numbers-rows {
+    left: 10px !important;
+  }
 `;
 
 const SCTocAffix = styled.div`
