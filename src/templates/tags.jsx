@@ -23,7 +23,7 @@ const TagTemplate = ({ pageContext, data }) => {
     allMarkdownRemark,
   } = data;
   const { edges, totalCount } = allMarkdownRemark;
-  const tagHeader = `${totalCount}篇文章关于 "${tag}"`;
+  const tagHeader = `${totalCount}篇文章关于"${tag}"`;
   return (
     <Layout title={siteTitle}>
       <h1>{tagHeader}</h1>
@@ -40,10 +40,6 @@ const TagTemplate = ({ pageContext, data }) => {
           );
         })}
       </ul>
-      {/*
-              This links to a page that does not yet exist.
-              You'll come back to it!
-            */}
       <SCLink to="/tags">全部标签</SCLink>
     </Layout>
   );

@@ -187,9 +187,7 @@ const BlogPostTemplate = ({
             <SCLabel>
               <IconTag size={16} />
               &nbsp;
-              {tags.map(text => (
-                <Tag>{text}</Tag>
-              ))}
+              {tags ? tags.map(text => <Tag>{text}</Tag>) : null}
             </SCLabel>
           </p>
         </SCHeader>
