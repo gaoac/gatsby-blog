@@ -11,9 +11,7 @@ import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
 
-const SCHeader = styled.header`
-  color: green;
-`;
+const SCHeader = styled.header``;
 
 const SCSection = styled.section`
   text-align: justify;
@@ -28,19 +26,59 @@ const SCTocAffix = styled.div`
   top: 80px;
   right: 20px;
   width: 240px;
+  height: 80vh;
+  max-height: calc(100vh - 80px);
+  font-size: 14px;
   overflow: auto;
-  border-left: 1px solid #000;
-  li {
-    list-style: none;
-    a {
-      color: #555;
-      text-decoration: none;
+  div {
+    > ul {
+      border-left: 1px solid #d2d2d2;
     }
   }
+  ul {
+    color: #555;
+    margin-left: 0;
+    li {
+      list-style: none;
+      margin-bottom: 0;
+      > ul {
+        margin-left: 0.9rem;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      > p {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      a {
+        display: block;
+        width: 240px;
+        color: #555;
+        text-decoration: none;
+        font-size: 12px;
+        padding-left: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border-left: 1px solid transparent;
+        transition: all 0.3s ease;
+        &:hover {
+          color: #a166ab;
+        }
+      }
+    }
+  }
+
   .active {
-    color: red;
-    padding-left: 16px;
-    border-left: 4px solid rgb(97, 218, 251);
+    color: #a166ab;
+    &::before {
+      display: block;
+      content: '';
+      height: 18px;
+      width: 1px;
+      background-color: #a166ab;
+      position: absolute;
+      left: 0;
+    }
   }
   @media screen and (max-width: 500px) {
     display: none;
@@ -137,9 +175,11 @@ const BlogPostTemplate = ({
             }}
           >
             <Clock size={16} style={{ verticalAlign: 'middle' }} />
-            <span style={{ verticalAlign: 'sub' }}>{dayjs(date).format('YYYY-MM-DD')}</span>
             &nbsp;
+            <span style={{ verticalAlign: 'sub' }}>{dayjs(date).format('YYYY-MM-DD')}</span>
+            &nbsp;&nbsp;
             <Tag size={16} style={{ verticalAlign: 'middle' }} />
+            &nbsp;
             <span style={{ verticalAlign: 'sub' }}>{theTags.join(' ')}</span>
           </p>
         </SCHeader>
