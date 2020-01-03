@@ -90,11 +90,15 @@ const BlogIndex = ({ data, location }) => {
                   {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
                 </SCLabel>
                 &nbsp; &nbsp;
-                <SCLabel>
-                  <IconTag size={16} />
-                  &nbsp;
-                  {tags ? tags.map(text => <Tag>{text}</Tag>) : null}
-                </SCLabel>
+                {tags && tags.length ? (
+                  <SCLabel>
+                    <IconTag size={16} />
+                    &nbsp;
+                    {tags.map(text => (
+                      <Tag>{text}</Tag>
+                    ))}
+                  </SCLabel>
+                ) : null}
               </SCSmall>
             </header>
             <section>

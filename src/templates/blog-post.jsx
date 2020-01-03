@@ -184,11 +184,15 @@ const BlogPostTemplate = ({
               {dayjs(date).format('YYYY-MM-DD')}
             </SCLabel>
             &nbsp;&nbsp;
-            <SCLabel>
-              <IconTag size={16} />
-              &nbsp;
-              {tags ? tags.map(text => <Tag>{text}</Tag>) : null}
-            </SCLabel>
+            {tags && tags.length ? (
+              <SCLabel>
+                <IconTag size={16} />
+                &nbsp;
+                {tags.map(text => (
+                  <Tag>{text}</Tag>
+                ))}
+              </SCLabel>
+            ) : null}
           </p>
         </SCHeader>
         <SCSection id="article" dangerouslySetInnerHTML={{ __html: html }} />
