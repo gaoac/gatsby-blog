@@ -25,7 +25,8 @@ const SCSection = styled.section`
   th {
     padding: 8px;
   }
-  .line-numbers-rows {
+  .line-numbers .line-numbers-rows {
+    top: 1rem;
     left: 10px !important;
   }
 `;
