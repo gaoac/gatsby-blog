@@ -8,6 +8,7 @@ categories: Git
 #### 写在前面
 
 关于 Git，大家想必都很熟悉，因为我们几乎每天都在重复着`git add`、`git commit`、`git push`等命令，自然也就留下很多“痕迹”，如果没有好的规范和工具来约束，可能就会出现以下情况：
+
 ![](https://github.com/gaoac/images-library/blob/master/blog/git_commit_error.png?raw=true)
 
 因此，规范和工具的重要性就体现出来了：
