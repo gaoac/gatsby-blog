@@ -67,16 +67,31 @@ const ArchivesPage = ({
                   </SCYear>
                   <br />
                 </Timeline.Item>
-                {d.map(item => (
-                  <Timeline.Item key={item.frontmatter.date}>
-                    <span>{dayjs(item.frontmatter.date).format('MM-DD')}</span>&nbsp;&nbsp;
-                    <span>
-                      <SCLink to={item.fields.slug} className="hvr-underline-from-center">
-                        {item.frontmatter.title}
-                      </SCLink>
-                    </span>
-                  </Timeline.Item>
-                ))}
+                {d.map((item, index) =>
+                  index !== d.length - 1 ? (
+                    <Timeline.Item key={item.frontmatter.date}>
+                      <span>{dayjs(item.frontmatter.date).format('MM-DD')}</span>&nbsp;&nbsp;
+                      <span>
+                        <SCLink to={item.fields.slug} className="hvr-underline-from-center">
+                          {item.frontmatter.title}
+                        </SCLink>
+                      </span>
+                    </Timeline.Item>
+                  ) : (
+                    <>
+                      <Timeline.Item key={item.frontmatter.date}>
+                        <span>{dayjs(item.frontmatter.date).format('MM-DD')}</span>&nbsp;&nbsp;
+                        <span>
+                          <SCLink to={item.fields.slug} className="hvr-underline-from-center">
+                            {item.frontmatter.title}
+                          </SCLink>
+                        </span>
+                        <br />
+                        <br />
+                      </Timeline.Item>
+                    </>
+                  ),
+                )}
               </>
             ))}
         </Timeline>
