@@ -18,6 +18,9 @@ const SCArticle = styled.article`
   &:hover {
     background: ${theme['@custom-article-hover-background']};
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+    .ant-divider {
+      background: ${theme['@primary-color']};
+    }
   }
 `;
 
