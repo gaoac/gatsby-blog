@@ -14,14 +14,17 @@ import 'gitalk/dist/gitalk.css';
 import theme from '../theme/default';
 
 const SCHeader = styled.header`
-  h1 {
+  h3 {
+    text-align: center;
     border-bottom: 0;
   }
 `;
 
 const SCLabel = styled.span`
-  display: inline-flex;
-  align-items: center;
+  svg {
+    margin: 0 8px;
+    vertical-align: -0.25em;
+  }
 `;
 
 const SCSection = styled.section`
@@ -172,14 +175,14 @@ const BlogPostTemplate = ({
       <SEO title={title} description={description || excerpt} />
       <article>
         <SCHeader>
-          <h1
+          <h3
             style={{
               marginTop: rhythm(1),
               marginBottom: 0,
             }}
           >
             {title}
-          </h1>
+          </h3>
           <Divider />
           <p
             style={{
@@ -190,24 +193,19 @@ const BlogPostTemplate = ({
           >
             <SCLabel>
               <IconClock size={16} />
-              &nbsp;
               {dayjs(date).format('YYYY-MM-DD')}
             </SCLabel>
-            &nbsp;&nbsp;
             {tags && tags.length ? (
               <SCLabel>
                 <IconTag size={16} />
-                &nbsp;
                 {tags.map(text => (
                   <Tag>{text}</Tag>
                 ))}
               </SCLabel>
             ) : null}
-            &nbsp;&nbsp;
             {categories && categories.length ? (
               <SCLabel>
                 <IconFolder size={16} />
-                &nbsp;
                 {categories.map(text => (
                   <Tag>{text}</Tag>
                 ))}

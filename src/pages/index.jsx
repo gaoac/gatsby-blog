@@ -24,6 +24,13 @@ const SCArticle = styled.article`
   }
 `;
 
+const SCH3 = styled.h3`
+  margin-bottom: ${rhythm(1 / 4)};
+  @media screen and (max-width: 500px) {
+    text-align: center;
+  }
+`;
+
 const SCLink = styled(Link)`
   color: ${theme['@text-color']};
   box-shadow: none;
@@ -38,8 +45,10 @@ const SCSmall = styled.small`
   margin: 10px 0 20px;
 `;
 const SCLabel = styled.span`
-  display: inline-flex;
-  align-items: center;
+  svg {
+    margin: 0 8px;
+    vertical-align: -0.25em;
+  }
 `;
 
 const SCButton = styled.div`
@@ -74,36 +83,27 @@ const BlogIndex = ({ data, location }) => {
         const categories = node.frontmatter.categories || [];
         return (
           <SCArticle key={node.fields.slug}>
-            <header className="blog-index-header">
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
+            <header>
+              <SCH3>
                 <SCLink to={node.fields.slug}>{title}</SCLink>
-              </h3>
+              </SCH3>
               <Divider />
               <SCSmall>
                 <SCLabel>
                   <IconClock size={16} />
-                  &nbsp;
                   {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
                 </SCLabel>
-                &nbsp; &nbsp;
                 {tags && tags.length ? (
                   <SCLabel>
                     <IconTag size={16} />
-                    &nbsp;
                     {tags.map(text => (
                       <Tag>{text}</Tag>
                     ))}
                   </SCLabel>
                 ) : null}
-                &nbsp; &nbsp;
                 {categories && categories.length ? (
                   <SCLabel>
                     <IconFolder size={16} />
-                    &nbsp;
                     {categories.map(text => (
                       <Tag>{text}</Tag>
                     ))}
