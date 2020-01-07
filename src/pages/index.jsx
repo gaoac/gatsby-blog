@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import 'hover.css/css/hover-min.css';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import { rhythm } from '../utils/typography';
+import { rhythm, scale } from '../utils/typography';
 
 import theme from '../theme/default';
 
@@ -40,13 +40,9 @@ const SCLink = styled(Link)`
   }
 `;
 
-const SCSmall = styled.small`
-  display: block;
-  margin: 10px 0 20px;
-`;
 const SCLabel = styled.span`
   svg {
-    margin: 0 8px;
+    margin-right: 8px;
     vertical-align: -0.25em;
   }
 `;
@@ -88,13 +84,20 @@ const BlogIndex = ({ data, location }) => {
                 <SCLink to={node.fields.slug}>{title}</SCLink>
               </SCH3>
               <Divider />
-              <SCSmall>
+              <p
+                style={{
+                  ...scale(-1 / 5),
+                  display: `block`,
+                  marginBottom: rhythm(1),
+                }}
+              >
                 <SCLabel>
                   <IconClock size={16} />
                   {dayjs(node.frontmatter.date).format('YYYY-MM-DD')}
                 </SCLabel>
                 {tags && tags.length ? (
                   <SCLabel>
+                    <Divider type="vertical" />
                     <IconTag size={16} />
                     {tags.map(text => (
                       <Tag>{text}</Tag>
@@ -103,13 +106,14 @@ const BlogIndex = ({ data, location }) => {
                 ) : null}
                 {categories && categories.length ? (
                   <SCLabel>
+                    <Divider type="vertical" />
                     <IconFolder size={16} />
                     {categories.map(text => (
                       <Tag>{text}</Tag>
                     ))}
                   </SCLabel>
                 ) : null}
-              </SCSmall>
+              </p>
             </header>
             <section>
               <p

@@ -22,7 +22,7 @@ const SCHeader = styled.header`
 
 const SCLabel = styled.span`
   svg {
-    margin: 0 8px;
+    margin-right: 8px;
     vertical-align: -0.25em;
   }
 `;
@@ -197,6 +197,7 @@ const BlogPostTemplate = ({
             </SCLabel>
             {tags && tags.length ? (
               <SCLabel>
+                <Divider type="vertical" />
                 <IconTag size={16} />
                 {tags.map(text => (
                   <Tag>{text}</Tag>
@@ -205,6 +206,7 @@ const BlogPostTemplate = ({
             ) : null}
             {categories && categories.length ? (
               <SCLabel>
+                <Divider type="vertical" />
                 <IconFolder size={16} />
                 {categories.map(text => (
                   <Tag>{text}</Tag>
