@@ -1,13 +1,13 @@
 /* eslint-disable react/no-danger */
 import React, { useEffect } from 'react';
 import { Link, graphql } from 'gatsby';
+import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import Gitalk from 'gitalk';
-import { Clock as IconClock, Tag as IconTag } from 'react-feather';
+import { Clock as IconClock, Tag as IconTag, Folder as IconFolder } from 'react-feather';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Tag from '../components/Tag';
 import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
@@ -98,7 +98,7 @@ const SCTocAffix = styled.div`
 const BlogPostTemplate = ({
   data: {
     markdownRemark: {
-      frontmatter: { date, tags, title, description },
+      frontmatter: { date, tags, title, description, categories },
       excerpt,
       html,
       tableOfContents,
@@ -197,6 +197,16 @@ const BlogPostTemplate = ({
                 ))}
               </SCLabel>
             ) : null}
+            &nbsp;&nbsp;
+            {categories && categories.length ? (
+              <SCLabel>
+                <IconFolder size={16} />
+                &nbsp;
+                {categories.map(text => (
+                  <Tag>{text}</Tag>
+                ))}
+              </SCLabel>
+            ) : null}
           </p>
         </SCHeader>
         <SCSection id="article" dangerouslySetInnerHTML={{ __html: html }} />
@@ -259,6 +269,7 @@ export const pageQuery = graphql`
         date
         description
         tags
+        categories
       }
     }
   }

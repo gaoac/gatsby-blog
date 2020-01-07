@@ -2,7 +2,8 @@
 title: onDrag & onDrop 使用dataTransfer传输数据时IE/chrome兼容问题
 date: 2019-06-21 17:54:49
 tags: [ECMAScript,JavaScript,HTML]
-categories: HTML
+categories: [HTML]
+description: ""
 ---
 
 ### 起因
@@ -21,7 +22,7 @@ function allowDrop(event) {
 
 function drop(event) {
     event.preventDefault();
-    console.log(event.dataTransfer.getData("data"))； 
+    console.log(event.dataTransfer.getData("data"))；
     // TODO
 }
 
@@ -55,8 +56,6 @@ event.dataTransfer.setData("data", JSON.stringify(itemData));
 ev.dataTransfer.setData("text/plain", ev.target.id);
 ```
 
-
-
 ### 探寻
 
 不由地，翻开[MSDN](<https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API>)，找到如下一些介绍：
@@ -75,16 +74,13 @@ function dragstart_handler(ev) {
 ```
 
 >注：在旧代码中，可能会使用 `text/unicode` 或者 `Text` 类型， 这两个与 `text/plain`是一样的，并且应该被替换用于存储和提取数据。
-
 >查看[推荐拖动类型](https://developer.mozilla.org/zh-CN/docs/DragDrop/Recommended_Drag_Types)了解可拖拽的通用数据类型（如文本，HTML，链接和文件），移步[拖动数据](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Drag_operations#dragdata)获取更多有关拖动数据的信息
-
 >**DataTransfer.setData()** 方法用来设置拖放操作的[`drag data`](https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer)到指定的数据和类型。
 如果给定类型的数据不存在，则将其添加到拖动数据存储的末尾，使得 [`types`](https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/types) 列表中的最后一个项目将是新类型。
 如果给定类型的数据已经存在，现有数据将被替换为相同的位置。也就是说，替换相同类型的数据时 [`types`](https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/types)列表的顺序不会更改。
 示例数据类型为："`text/plain`" 和 "`text/uri-list`".
-
->**DataTransfer.types** 是只读属性。它返回一个我们在`dragstart`事件中设置的拖动数据格式(如 [`字符串`](https://developer.mozilla.org/zh-CN/docs/Web/API/DOMString)) 的数组。 格式顺序与拖动操作中包含的数据顺序相同。 
-这些格式是指定数据类型或格式的Unicode字符串，通常由MIME类型给出。 一些非MIME类型的值是由于历史遗留原因（例如“text”）而特殊设置的。 
+>**DataTransfer.types** 是只读属性。它返回一个我们在`dragstart`事件中设置的拖动数据格式(如 [`字符串`](https://developer.mozilla.org/zh-CN/docs/Web/API/DOMString)) 的数组。 格式顺序与拖动操作中包含的数据顺序相同。
+这些格式是指定数据类型或格式的Unicode字符串，通常由MIME类型给出。 一些非MIME类型的值是由于历史遗留原因（例如“text”）而特殊设置的。
 
 由上可以看出，HTML拖放支持拖动各种类型的数据，包括纯文本，URL，HTML代码，文件等。
 
@@ -106,6 +102,7 @@ function dragstart_handler(ev) {
 ```
 
 至于为什么不能像MSDN例子中一样，使用"text/plain"，比如
+
 ```js
 ev.dataTransfer.setData("text/plain", ev.target.id);
 data = JSON.parse(ev.dataTransfer.getData('text/plain'));
@@ -124,9 +121,8 @@ data = JSON.parse(ev.dataTransfer.getData('text/plain'));
 
 看来，各大浏览器具体能不能映射，以及如何映射还真是各抒己见。不过主要开始IE的区别，故采用上面的方式，针对性的传值。
 
-### 总结：
+### 总结
 
 虽然问题已经解决，但是实际上对于其内部原理，自己还是懵懵懂懂，比如为什么使用普通demo页测试时，IE、Chrome、Firefox都可以正常使用“text”，而真实项目却出现上诉表格中的结果？目前来讲，其中原理还是需要深入探寻。
 
 通过这次事件，也给我留下一点思考：我们真的知道我们在用什么吗？是仅仅满足能解决问题就OK，还是想去深入理解其内部实现原理。看来自己的前端之路确实还很漫长。
-

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import { Clock as IconClock, Tag as IconTag } from 'react-feather';
+import { Tag } from 'antd';
+import { Clock as IconClock, Tag as IconTag, Folder as IconFolder } from 'react-feather';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'hover.css/css/hover-min.css';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Tag from '../components/Tag';
 import { rhythm } from '../utils/typography';
 
 const SCArticle = styled.article`
@@ -71,6 +71,7 @@ const BlogIndex = ({ data, location }) => {
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug;
         const tags = node.frontmatter.tags || [];
+        const categories = node.frontmatter.categories || [];
         return (
           <SCArticle key={node.fields.slug}>
             <header className="blog-index-header">
@@ -95,6 +96,16 @@ const BlogIndex = ({ data, location }) => {
                     <IconTag size={16} />
                     &nbsp;
                     {tags.map(text => (
+                      <Tag>{text}</Tag>
+                    ))}
+                  </SCLabel>
+                ) : null}
+                &nbsp; &nbsp;
+                {categories && categories.length ? (
+                  <SCLabel>
+                    <IconFolder size={16} />
+                    &nbsp;
+                    {categories.map(text => (
                       <Tag>{text}</Tag>
                     ))}
                   </SCLabel>
@@ -124,7 +135,7 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex;
 
 export const pageQuery = graphql`
-  query {
+  {
     site {
       siteMetadata {
         title
@@ -133,7 +144,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          excerpt
+          excerpt(pruneLength: 200, truncate: true)
           fields {
             slug
           }
@@ -142,6 +153,7 @@ export const pageQuery = graphql`
             title
             description
             tags
+            categories
           }
         }
       }

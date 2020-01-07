@@ -5,11 +5,15 @@ import {
   Menu as IconMenu,
   Home as IconHome,
   Tag as IconTag,
+  Folder as IconFolder,
+  Archive as IconArchive,
   User as IconUser,
 } from 'react-feather';
 import styled from 'styled-components';
 
 import { rhythm } from '../utils/typography';
+
+import theme from '../theme/default';
 
 const SCHeader = styled.header`
   height: 60px;
@@ -66,7 +70,7 @@ const SCMenuLi = styled.li`
   min-width: 72px;
   border-top: 2px solid transparent;
   &:hover {
-    border-top: 2px solid #1890ff;
+    border-top: 2px solid ${theme['@primary-color']};
     border-bottom: 2px solid transparent;
   }
   @media screen and (max-width: 500px) {
@@ -89,7 +93,7 @@ const SCLink = styled(Link)`
   color: #555;
   text-decoration: none;
   &:hover {
-    color: #1890ff;
+    color: '@primary-color';
     text-decoration: none;
   }
   span {
@@ -153,9 +157,21 @@ const Header = () => {
           </SCLink>
         </SCMenuLi>
         <SCMenuLi>
+          <SCLink to="/archives">
+            <IconArchive size={16} />
+            <span>归档</span>
+          </SCLink>
+        </SCMenuLi>
+        <SCMenuLi>
           <SCLink to="/tags">
             <IconTag size={16} />
             <span>标签</span>
+          </SCLink>
+        </SCMenuLi>
+        <SCMenuLi>
+          <SCLink to="/categories">
+            <IconFolder size={16} />
+            <span>分类</span>
           </SCLink>
         </SCMenuLi>
         <SCMenuLi>

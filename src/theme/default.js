@@ -1,0 +1,3 @@
+module.exports = {
+  '@primary-color': '#1890ff', // 全局主色
+};

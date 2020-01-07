@@ -1,3 +1,5 @@
+const theme = require('./src/theme/default');
+
 module.exports = {
   siteMetadata: {
     title: 'Deku 的个人博客',
@@ -96,6 +98,20 @@ module.exports = {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         displayName: false,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-import',
+      options: {
+        libraryName: 'antd',
+        style: true, // or 'css'
+      },
+    },
+    {
+      resolve: `gatsby-plugin-less`,
+      options: {
+        javascriptEnabled: true,
+        modifyVars: theme,
       },
     },
   ],
