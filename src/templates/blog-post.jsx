@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React, { useEffect } from 'react';
 import { Link, graphql } from 'gatsby';
-import { Tag } from 'antd';
+import { Tag, Divider } from 'antd';
 import dayjs from 'dayjs';
 import Gitalk from 'gitalk';
 import { Clock as IconClock, Tag as IconTag, Folder as IconFolder } from 'react-feather';
@@ -11,8 +11,13 @@ import SEO from '../components/SEO';
 import { rhythm, scale } from '../utils/typography';
 
 import 'gitalk/dist/gitalk.css';
+import theme from '../theme/default';
 
-const SCHeader = styled.header``;
+const SCHeader = styled.header`
+  h1 {
+    border-bottom: 0;
+  }
+`;
 
 const SCLabel = styled.span`
   display: inline-flex;
@@ -42,11 +47,11 @@ const SCTocAffix = styled.div`
   overflow-x: hidden;
   div {
     > ul {
-      border-left: 1px solid #d2d2d2;
+      border-left: 1px solid ${theme['@custom-article-border']};
     }
   }
   ul {
-    color: #555;
+    color: ${theme['@text-color']};
     margin-left: 0;
     li {
       list-style: none;
@@ -63,7 +68,7 @@ const SCTocAffix = styled.div`
       a {
         display: block;
         width: 240px;
-        color: #555;
+        color: ${theme['@text-color']};
         text-decoration: none;
         font-size: 14px;
         padding: 2px 0 2px 16px;
@@ -72,20 +77,20 @@ const SCTocAffix = styled.div`
         border-left: 1px solid transparent;
         transition: all 0.3s ease;
         &:hover {
-          color: #a166ab;
+          color: ${theme['@primary-color']};
         }
       }
     }
   }
 
   .active {
-    color: #a166ab;
+    color: ${theme['@primary-color']};
     &::before {
       display: block;
       content: '';
       height: 18px;
       width: 1px;
-      background-color: #a166ab;
+      background-color: ${theme['@primary-color']};
       position: absolute;
       left: 0;
     }
@@ -175,6 +180,7 @@ const BlogPostTemplate = ({
           >
             {title}
           </h1>
+          <Divider />
           <p
             style={{
               ...scale(-1 / 5),

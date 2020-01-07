@@ -1,3 +1,8 @@
 module.exports = {
-  '@primary-color': '#1890ff', // 全局主色
+  '@primary-color': '#a166ab',
+  '@text-color': '#555',
+  '@link-color': '#1890ff',
+  '@body-background': '#fff',
+  '@custom-article-hover-background': '#f6f1fb',
+  '@custom-article-border': '#f0f0f0',
 };

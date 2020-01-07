@@ -10,12 +10,14 @@ import { Helmet } from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
+import theme from '../theme/default';
 
 const SCLink = styled(Link)`
   text-decoration: none !important;
   &.hvr-underline-from-center {
     &::before {
       height: 2px;
+      background: ${theme['@primary-color']};
     }
   }
 `;

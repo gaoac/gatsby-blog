@@ -5,6 +5,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
 import Header from './Header';
+import theme from '../theme/default';
 
 const SCLayout = styled.div`
   height: 100vh;
@@ -27,7 +28,7 @@ const SCMain = styled.main`
   flex-direction: column;
   width: 60vw;
   padding: 2rem 2rem;
-  background: #fff;
+  background: ${theme['@body-background']};
 
   @media screen and (max-width: 500px) {
     width: 100vw;

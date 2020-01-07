@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import { Tag } from 'antd';
+import { Tag, Divider } from 'antd';
 import { Clock as IconClock, Tag as IconTag, Folder as IconFolder } from 'react-feather';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -9,30 +9,24 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { rhythm } from '../utils/typography';
 
+import theme from '../theme/default';
+
 const SCArticle = styled.article`
   padding: 10px 10px 20px 10px;
+  border: 1px solid ${theme['@custom-article-border']};
+  margin: 0 0 18px 0;
   &:hover {
-    background: #effbff;
+    background: ${theme['@custom-article-hover-background']};
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
   }
 `;
 
 const SCLink = styled(Link)`
-  color: #394d69;
+  color: ${theme['@text-color']};
   box-shadow: none;
   text-decoration: none !important;
   &:hover {
-    color: #48b2ff;
-  }
-  &.hvr-underline-from-center {
-    &::before {
-      height: 2px;
-    }
-  }
-  @media screen and (max-width: 500px) {
-    .hvr-underline-from-center {
-      display: contents;
-    }
+    color: ${theme['@primary-color']};
   }
 `;
 
@@ -50,11 +44,14 @@ const SCButton = styled.div`
 `;
 const SCButtonLink = styled(Link)`
   text-decoration: none !important;
-  background-color: #fff;
-  border: 1px solid #da552f;
+  background-color: ${theme['@body-background']};
+  border: 1px solid ${theme['@primary-color']};
   display: inline-block;
   padding: 4px 10px;
-  color: #da552f;
+  color: ${theme['@primary-color']};
+  &:hover {
+    color: ${theme['@primary-color']};
+  }
 
   @media screen and (max-width: 500px) {
     display: contents;
@@ -80,10 +77,9 @@ const BlogIndex = ({ data, location }) => {
                   marginBottom: rhythm(1 / 4),
                 }}
               >
-                <SCLink className="hvr-underline-from-center" to={node.fields.slug}>
-                  {title}
-                </SCLink>
+                <SCLink to={node.fields.slug}>{title}</SCLink>
               </h3>
+              <Divider />
               <SCSmall>
                 <SCLabel>
                   <IconClock size={16} />

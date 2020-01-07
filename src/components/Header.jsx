@@ -53,7 +53,7 @@ const SCMenuUl = styled.ul`
     padding: 4px 10px;
     text-align: left;
     list-style-type: none;
-    background-color: #fff;
+    background-color: ${theme['@body-background']};
     background-clip: padding-box;
     border-radius: 4px;
     outline: none;
@@ -90,10 +90,10 @@ const SCMenuLi = styled.li`
 const SCLink = styled(Link)`
   display: flex;
   align-items: center;
-  color: #555;
+  color: ${theme['@text-color']};
   text-decoration: none;
   &:hover {
-    color: '@primary-color';
+    color: ${theme['@primary-color']};
     text-decoration: none;
   }
   span {
