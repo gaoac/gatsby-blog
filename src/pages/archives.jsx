@@ -1,6 +1,8 @@
 import React from 'react';
 import { Timeline } from 'antd';
+import { ClockCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
+import _ from 'lodash';
 
 // Utilities
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -22,38 +24,71 @@ const SCLink = styled(Link)`
   }
 `;
 
+const SCYear = styled.div`
+  font-size: 22px;
+  font-weight: 600;
+  position: relative;
+  top: -4px;
+`;
+
 const ArchivesPage = ({
   data: {
-    allMarkdownRemark: { nodes },
+    allMarkdownRemark: { nodes, totalCount },
     site: {
       siteMetadata: { title },
     },
   },
-}) => (
-  <Layout title={title}>
-    <Helmet title={title} />
-    <div>
-      <h1>归档</h1>
-      <Timeline>
-        {nodes.map(item => (
-          <Timeline.Item key={item.frontmatter.date}>
-            <span>{dayjs(item.frontmatter.date).format('YYYY-MM-DD')}</span>&nbsp;&nbsp;
-            <span>
-              <SCLink to={item.fields.slug} className="hvr-underline-from-center">
-                {item.frontmatter.title}
-              </SCLink>
-            </span>
-          </Timeline.Item>
-        ))}
-      </Timeline>
-    </div>
-  </Layout>
-);
+}) => {
+  const dateGroupObj = _.groupBy(nodes, 'frontmatter.date');
+  const list = Object.keys(dateGroupObj).map(item => dateGroupObj[item]);
+  return (
+    <Layout title={title}>
+      <Helmet title={title} />
+      <div>
+        <h1>归档</h1>
+        <Timeline>
+          {list &&
+            list.map((d, i) => (
+              <>
+                {i === 0 && (
+                  <Timeline.Item>
+                    <span className="desc">嗯..! 目前共计 {totalCount} 篇日志。 继续努力。</span>
+                    <br />
+                    <br />
+                  </Timeline.Item>
+                )}
+                <Timeline.Item
+                  dot={<ClockCircleOutlined type="clock-circle-o" style={{ fontSize: '16px' }} />}
+                  color="red"
+                >
+                  <SCYear>
+                    {dayjs(d[0].frontmatter.date).format('YYYY')}
+                    ...
+                  </SCYear>
+                  <br />
+                </Timeline.Item>
+                {d.map(item => (
+                  <Timeline.Item key={item.frontmatter.date}>
+                    <span>{dayjs(item.frontmatter.date).format('MM-DD')}</span>&nbsp;&nbsp;
+                    <span>
+                      <SCLink to={item.fields.slug} className="hvr-underline-from-center">
+                        {item.frontmatter.title}
+                      </SCLink>
+                    </span>
+                  </Timeline.Item>
+                ))}
+              </>
+            ))}
+        </Timeline>
+      </div>
+    </Layout>
+  );
+};
 
 export default ArchivesPage;
 
 export const pageQuery = graphql`
-  query {
+  {
     site {
       siteMetadata {
         title
@@ -69,6 +104,7 @@ export const pageQuery = graphql`
           title
         }
       }
+      totalCount
     }
   }
 `;
