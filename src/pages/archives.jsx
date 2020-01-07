@@ -2,7 +2,6 @@ import React from 'react';
 import { Timeline } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import _ from 'lodash';
 
 // Utilities
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -11,6 +10,7 @@ import _ from 'lodash';
 import { Helmet } from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
+import { groupBy } from '../utils/utils';
 import Layout from '../components/Layout';
 import theme from '../theme/default';
 
@@ -39,8 +39,7 @@ const ArchivesPage = ({
     },
   },
 }) => {
-  const dateGroupObj = _.groupBy(nodes, 'frontmatter.date');
-  const list = Object.keys(dateGroupObj).map(item => dateGroupObj[item]);
+  const list = groupBy(nodes, item => dayjs(item.frontmatter.date).format('YYYY'));
   return (
     <Layout title={title}>
       <Helmet title={title} />
