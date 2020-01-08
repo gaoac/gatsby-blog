@@ -8,15 +8,19 @@ import styled from 'styled-components';
 // Components
 import { Helmet } from 'react-helmet';
 import { Link, graphql } from 'gatsby';
+import { Tag, Badge } from 'antd';
 import Layout from '../components/Layout';
-import theme from '../theme/default';
+import { getTagColor } from '../utils/utils';
 
-const SCLink = styled(Link)`
-  text-decoration: none !important;
-  &.hvr-underline-from-center {
-    &::before {
-      height: 2px;
-      background: ${theme['@primary-color']};
+const SCTags = styled.div`
+  text-align: center;
+`;
+const SCLink = styled(Link)``;
+const SCBadge = styled(Badge)`
+  margin: 0 10px !important;
+  .ant-tag {
+    a {
+      color: inherit;
     }
   }
 `;
@@ -33,18 +37,15 @@ const TagsPage = ({
     <Helmet title={title} />
     <div>
       <h1>标签</h1>
-      <ul>
-        {group.map(tag => (
-          <li key={tag.fieldValue}>
-            <SCLink
-              to={`/tags/${kebabCase(tag.fieldValue)}/`}
-              className="hvr-underline-from-center"
-            >
-              {tag.fieldValue} ({tag.totalCount})
-            </SCLink>
-          </li>
+      <SCTags>
+        {group.map((tag, index) => (
+          <SCBadge count={tag.totalCount}>
+            <Tag color={getTagColor(tag.totalCount, index)}>
+              <SCLink to={`/tags/${kebabCase(tag.fieldValue)}/`}>{tag.fieldValue}</SCLink>
+            </Tag>
+          </SCBadge>
         ))}
-      </ul>
+      </SCTags>
     </div>
   </Layout>
 );
@@ -58,7 +59,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(limit: 2000) {
+    allMarkdownRemark {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount

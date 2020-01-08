@@ -8,6 +8,7 @@ import 'hover.css/css/hover-min.css';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { rhythm, scale } from '../utils/typography';
+import { getTagColor } from '../utils/utils';
 
 import theme from '../theme/default';
 
@@ -69,6 +70,18 @@ const SCButtonLink = styled(Link)`
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title;
   const posts = data.allMarkdownRemark.edges;
+  const tagsArray = data.tagsGroup.group;
+  const categoriesArray = data.categoriesGroup.group;
+  const tagsArrayLength = tagsArray.length;
+  const categoriesArrayLength = categoriesArray.length;
+  const tagsColorObj = {};
+  const categoriesColorObj = {};
+  tagsArray.forEach((element, index) => {
+    tagsColorObj[element.fieldValue] = getTagColor(tagsArrayLength, index);
+  });
+  categoriesArray.forEach((element, index) => {
+    categoriesColorObj[element.fieldValue] = getTagColor(categoriesArrayLength, index);
+  });
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -77,6 +90,7 @@ const BlogIndex = ({ data, location }) => {
         const title = node.frontmatter.title || node.fields.slug;
         const tags = node.frontmatter.tags || [];
         const categories = node.frontmatter.categories || [];
+
         return (
           <SCArticle key={node.fields.slug}>
             <header>
@@ -100,7 +114,7 @@ const BlogIndex = ({ data, location }) => {
                     <Divider type="vertical" />
                     <IconTag size={16} />
                     {tags.map(text => (
-                      <Tag>{text}</Tag>
+                      <Tag color={tagsColorObj[text]}>{text}</Tag>
                     ))}
                   </SCLabel>
                 ) : null}
@@ -109,7 +123,7 @@ const BlogIndex = ({ data, location }) => {
                     <Divider type="vertical" />
                     <IconFolder size={16} />
                     {categories.map(text => (
-                      <Tag>{text}</Tag>
+                      <Tag color={categoriesColorObj[text]}>{text}</Tag>
                     ))}
                   </SCLabel>
                 ) : null}
@@ -159,6 +173,16 @@ export const pageQuery = graphql`
             categories
           }
         }
+      }
+    }
+    tagsGroup: allMarkdownRemark {
+      group(field: frontmatter___tags) {
+        fieldValue
+      }
+    }
+    categoriesGroup: allMarkdownRemark {
+      group(field: frontmatter___categories) {
+        fieldValue
       }
     }
   }

@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { rhythm, scale } from '../utils/typography';
+import { getTagColor } from '../utils/utils';
 
 import 'gitalk/dist/gitalk.css';
 import theme from '../theme/default';
@@ -114,6 +115,8 @@ const BlogPostTemplate = ({
     site: {
       siteMetadata: { title: siteTitle },
     },
+    tagsGroup,
+    categoriesGroup,
   },
   pageContext: { previous, next },
   location,
@@ -121,6 +124,19 @@ const BlogPostTemplate = ({
   let ticking = false;
 
   let textContent = '';
+
+  const tagsArray = tagsGroup.group;
+  const categoriesArray = categoriesGroup.group;
+  const tagsArrayLength = tagsArray.length;
+  const categoriesArrayLength = categoriesArray.length;
+  const tagsColorObj = {};
+  const categoriesColorObj = {};
+  tagsArray.forEach((element, index) => {
+    tagsColorObj[element.fieldValue] = getTagColor(tagsArrayLength, index);
+  });
+  categoriesArray.forEach((element, index) => {
+    categoriesColorObj[element.fieldValue] = getTagColor(categoriesArrayLength, index);
+  });
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -200,7 +216,7 @@ const BlogPostTemplate = ({
                 <Divider type="vertical" />
                 <IconTag size={16} />
                 {tags.map(text => (
-                  <Tag>{text}</Tag>
+                  <Tag color={tagsColorObj[text]}>{text}</Tag>
                 ))}
               </SCLabel>
             ) : null}
@@ -209,7 +225,7 @@ const BlogPostTemplate = ({
                 <Divider type="vertical" />
                 <IconFolder size={16} />
                 {categories.map(text => (
-                  <Tag>{text}</Tag>
+                  <Tag color={categoriesColorObj[text]}>{text}</Tag>
                 ))}
               </SCLabel>
             ) : null}
@@ -276,6 +292,16 @@ export const pageQuery = graphql`
         description
         tags
         categories
+      }
+    }
+    tagsGroup: allMarkdownRemark {
+      group(field: frontmatter___tags) {
+        fieldValue
+      }
+    }
+    categoriesGroup: allMarkdownRemark {
+      group(field: frontmatter___categories) {
+        fieldValue
       }
     }
   }

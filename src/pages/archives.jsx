@@ -47,7 +47,7 @@ const ArchivesPage = ({
         <h1>归档</h1>
         <Timeline>
           {list &&
-            list.map((d, i) => (
+            list.map((element, i) => (
               <>
                 {i === 0 && (
                   <Timeline.Item>
@@ -61,13 +61,13 @@ const ArchivesPage = ({
                   color="red"
                 >
                   <SCYear>
-                    {dayjs(d[0].frontmatter.date).format('YYYY')}
+                    {dayjs(element[0].frontmatter.date).format('YYYY')}
                     ...
                   </SCYear>
                   <br />
                 </Timeline.Item>
-                {d.map((item, index) =>
-                  index !== d.length - 1 ? (
+                {element.map((item, index) =>
+                  index !== element.length - 1 ? (
                     <Timeline.Item key={item.frontmatter.date}>
                       <span>{dayjs(item.frontmatter.date).format('MM-DD')}</span>&nbsp;&nbsp;
                       <span>
