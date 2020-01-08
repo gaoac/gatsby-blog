@@ -14,10 +14,13 @@ import { getTagColor } from '../utils/utils';
 
 const SCTags = styled.div`
   text-align: center;
+  .ant-badge-count {
+    z-index: 0;
+  }
 `;
 const SCLink = styled(Link)``;
 const SCBadge = styled(Badge)`
-  margin: 0 10px !important;
+  margin: 6px 10px !important;
   .ant-tag {
     a {
       color: inherit;
