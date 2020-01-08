@@ -1,6 +1,6 @@
 # gatsby-blog
 
-![license](https://wangchujiang.com/sb/license/mit.svg)
+![GitHub](https://img.shields.io/github/license/gaoac/gatsby-blog) ![Netlify](https://img.shields.io/netlify/08ee7477-3f7f-46ee-8c9c-76bfa70a4dc7)
 
 一个基于 Gatsby 构建的静态博客。
 
