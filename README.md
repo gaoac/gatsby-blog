@@ -1,6 +1,6 @@
 # gatsby-blog
 
-![GitHub](https://img.shields.io/github/license/gaoac/gatsby-blog) ![Netlify](https://img.shields.io/netlify/08ee7477-3f7f-46ee-8c9c-76bfa70a4dc7)
+![Dependencies](https://img.shields.io/david/gaoac/gatsby-blog) ![DevDependencies](https://img.shields.io/david/dev/gaoac/gatsby-blog) ![GitHub](https://img.shields.io/github/license/gaoac/gatsby-blog) [![Netlify Status](https://api.netlify.com/api/v1/badges/08ee7477-3f7f-46ee-8c9c-76bfa70a4dc7/deploy-status)](https://app.netlify.com/sites/gaoac/deploys)
 
 一个基于 Gatsby 构建的静态博客。
 
