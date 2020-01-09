@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby';
 import { Tag, Divider } from 'antd';
 import dayjs from 'dayjs';
 import Gitalk from 'gitalk';
-import { Clock as IconClock, Tag as IconTag, Folder as IconFolder } from 'react-feather';
+import { Calendar as IconCalendar, Tag as IconTag, Folder as IconFolder } from 'react-feather';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
@@ -208,8 +208,8 @@ const BlogPostTemplate = ({
             }}
           >
             <SCLabel>
-              <IconClock size={16} />
-              {dayjs(date).format('YYYY-MM-DD')}
+              <IconCalendar size={16} />
+              发表于 {dayjs(date).format('YYYY-MM-DD')}
             </SCLabel>
             {tags && tags.length ? (
               <SCLabel>

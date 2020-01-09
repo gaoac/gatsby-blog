@@ -72,7 +72,8 @@ const SCPagination = styled(Pagination)`
   justify-content: flex-end;
 `;
 
-const BlogIndex = ({ data, location }) => {
+const BlogIndex = ({ data, location, pageContext }) => {
+  const { totalPage, currentPage } = pageContext;
   const siteTitle = data.site.siteMetadata.title;
   const posts = data.allMarkdownRemark.edges;
   const tagsArray = data.tagsGroup.group;
@@ -87,6 +88,7 @@ const BlogIndex = ({ data, location }) => {
   categoriesArray.forEach((element, index) => {
     categoriesColorObj[element.fieldValue] = getTagColor(categoriesArrayLength, index);
   });
+
   const onChange = page => {
     navigate(`blog/${page}`);
   };
@@ -154,8 +156,8 @@ const BlogIndex = ({ data, location }) => {
         );
       })}
       <SCPagination
-        defaultCurrent={1}
-        total={data.allMarkdownRemark.totalCount}
+        defaultCurrent={currentPage}
+        total={totalPage}
         pageSize={10}
         onChange={onChange}
       />
@@ -166,13 +168,17 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex;
 
 export const pageQuery = graphql`
-  {
+  query($skip: Int = 1, $limit: Int!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 10, skip: 0) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: $limit
+      skip: $skip
+    ) {
       edges {
         node {
           excerpt(pruneLength: 200, truncate: true)
@@ -188,7 +194,6 @@ export const pageQuery = graphql`
           }
         }
       }
-      totalCount
     }
     tagsGroup: allMarkdownRemark {
       group(field: frontmatter___tags) {

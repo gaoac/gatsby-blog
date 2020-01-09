@@ -42,7 +42,9 @@ const ArchivesPage = ({
       siteMetadata: { title },
     },
   },
+  pageContext,
 }) => {
+  const { totalPage, currentPage } = pageContext;
   const list = groupBy(nodes, item => dayjs(item.frontmatter.date).format('YYYY'));
 
   const onChange = page => {
@@ -102,7 +104,12 @@ const ArchivesPage = ({
               </>
             ))}
         </Timeline>
-        <SCPagination defaultCurrent={1} total={totalCount} pageSize={10} onChange={onChange} />
+        <SCPagination
+          defaultCurrent={currentPage}
+          total={totalPage}
+          pageSize={10}
+          onChange={onChange}
+        />
       </div>
     </Layout>
   );
@@ -111,13 +118,17 @@ const ArchivesPage = ({
 export default ArchivesPage;
 
 export const pageQuery = graphql`
-  {
+  query($skip: Int = 1, $limit: Int!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { order: DESC, fields: frontmatter___date }, limit: 10, skip: 0) {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: frontmatter___date }
+      limit: $limit
+      skip: $skip
+    ) {
       nodes {
         fields {
           slug

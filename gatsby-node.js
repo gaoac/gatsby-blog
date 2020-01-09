@@ -5,8 +5,11 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
+  const pageSize = 10;
 
   const blogPostTemplate = path.resolve(`./src/templates/blog-post.jsx`);
+  const blogIndexTemplate = path.resolve(`./src/templates/blog.jsx`);
+  const archivesTemplate = path.resolve(`./src/templates/archives.jsx`);
   const tagTemplate = path.resolve('./src/templates/tags.jsx');
   const categorieTemplate = path.resolve('./src/templates/categories.jsx');
   const result = await graphql(
@@ -14,7 +17,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       {
         postsRemark: allMarkdownRemark(
           sort: { order: DESC, fields: [frontmatter___date] }
-          limit: 2000
+          limit: ${pageSize}
         ) {
           edges {
             node {
@@ -27,6 +30,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               }
             }
           }
+          totalCount
         }
         tagsGroup: allMarkdownRemark {
           group(field: frontmatter___tags) {
@@ -48,7 +52,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create blog posts pages.
-  const posts = result.data.postsRemark.edges;
+  const { edges: posts, totalCount } = result.data.postsRemark;
 
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node;
@@ -61,6 +65,31 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         slug: post.node.fields.slug,
         previous,
         next,
+      },
+    });
+  });
+
+  const numPages = Math.ceil(totalCount / pageSize);
+
+  Array.from({ length: numPages }).forEach((__, i) => {
+    createPage({
+      path: i === 0 ? `/blog/1` : `/blog/${i + 1}`,
+      component: blogIndexTemplate,
+      context: {
+        currentPage: i + 1,
+        totalPage: totalCount,
+        limit: pageSize,
+        skip: i * pageSize,
+      },
+    });
+    createPage({
+      path: i === 0 ? `/archives/1` : `/archives/${i + 1}`,
+      component: archivesTemplate,
+      context: {
+        currentPage: i + 1,
+        totalPage: totalCount,
+        limit: pageSize,
+        skip: i * pageSize,
       },
     });
   });

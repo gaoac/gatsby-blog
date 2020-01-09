@@ -87,6 +87,7 @@ const BlogIndex = ({ data, location }) => {
   categoriesArray.forEach((element, index) => {
     categoriesColorObj[element.fieldValue] = getTagColor(categoriesArrayLength, index);
   });
+
   const onChange = page => {
     navigate(`blog/${page}`);
   };
