@@ -17,13 +17,14 @@
 
 ## 技术栈
 
-* 框架
-  * [Gatsby](https://www.gatsbyjs.org/)
-  * [React v16.12.0 (Hook)](https://zh-hans.reactjs.org/)
+* 框架相关
+  * [Gatsby](https://github.com/gatsbyjs/gatsby)
+  * [React v16.12.0 (Hook)](https://github.com/facebook/react)
+  * [GraphQL)](https://github.com/graphql)
 * UI 组件库
-  * [Ant Design v4](https://next.ant.design/index-cn)
+  * [Ant Design v4](https://github.com/ant-design/ant-design)
 * CSS 模块化（CSS in JS）
-  * [styled-components](https://www.styled-components.com/)
+  * [styled-components](https://github.com/styled-components/styled-components)
 * 托管平台
   * [Netlify](https://app.netlify.com/)
 
