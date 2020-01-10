@@ -147,30 +147,30 @@ export default ({
             <ul>
               <li>
                 HTML、CSS、JavaScript：能熟练开发符合 W3C 标准的页面{' '}
-                <Rate allowHalf defaultValue={3} />
+                <Rate allowHalf disabled defaultValue={3} />
               </li>
               <li>
                 React 技术栈
                 <ul>
                   <li>
-                    React 、Redux、Router <Rate allowHalf defaultValue={3} />
+                    React 、Redux、Router <Rate allowHalf disabled defaultValue={3} />
                   </li>
                   <li>
-                    Ant Design 、UmiJS、DvaJS <Rate allowHalf defaultValue={3} />
+                    Ant Design 、UmiJS、DvaJS <Rate allowHalf disabled defaultValue={3} />
                   </li>
                   <li>
-                    CSS in JS：styled-components <Rate allowHalf defaultValue={3} />
+                    CSS in JS：styled-components <Rate allowHalf disabled defaultValue={3} />
                   </li>
                 </ul>
               </li>
               <li>
-                ECMAScript 6：日常开发必备 <Rate allowHalf defaultValue={3} />
+                ECMAScript 6：日常开发必备 <Rate allowHalf disabled defaultValue={3} />
               </li>
               <li>
-                WebPack：可以对脚手架进行针对性的配置 <Rate allowHalf defaultValue={2} />
+                WebPack：可以对脚手架进行针对性的配置 <Rate allowHalf disabled defaultValue={2} />
               </li>
               <li>
-                Linux：系统、常见软件服务安装与配置 <Rate allowHalf defaultValue={2} />{' '}
+                Linux：系统、常见软件服务安装与配置 <Rate allowHalf disabled defaultValue={2} />{' '}
                 <a
                   href="https://gaoac.netlify.com/%E5%8F%AF%E8%83%BD%E6%98%AF%E7%9B%AE%E5%89%8D%E6%9C%80%E8%AF%A6%E7%BB%86%E7%AE%80%E6%98%8E%E7%9A%84CentOS7%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B/"
                   rel="noopener noreferrer"
