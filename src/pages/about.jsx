@@ -44,7 +44,7 @@ export default ({
         distractionFreeMode: false,
       });
 
-      gitalk.render('comments');
+      gitalk.render('comments_about');
     });
   });
   return (
@@ -210,7 +210,7 @@ export default ({
           </li>
         </ul>
       </SCContent>
-      <div id="comments" />
+      <div id="comments_about" />
     </Layout>
   );
 };
