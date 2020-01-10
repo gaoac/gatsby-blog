@@ -42,6 +42,7 @@ const ArchivesPage = ({
       siteMetadata: { title },
     },
   },
+  location,
 }) => {
   const list = groupBy(nodes, item => dayjs(item.frontmatter.date).format('YYYY'));
 
@@ -49,7 +50,7 @@ const ArchivesPage = ({
     navigate(`archives/${page}`);
   };
   return (
-    <Layout title={title}>
+    <Layout location={location} title={title}>
       <Helmet title={title} />
       <div>
         <h1>归档</h1>

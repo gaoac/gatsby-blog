@@ -31,6 +31,7 @@ export default ({
     },
     avatar,
   },
+  location,
 }) => {
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -48,7 +49,7 @@ export default ({
     });
   });
   return (
-    <Layout title={title}>
+    <Layout location={location} title={title}>
       <SCContent>
         <Image
           fixed={avatar.childImageSharp.fixed}

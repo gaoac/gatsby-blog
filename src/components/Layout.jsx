@@ -39,10 +39,10 @@ const SCFooter = styled.footer`
   justify-content: center;
 `;
 
-const Layout = ({ title, children }) => {
+const Layout = ({ location, title, children }) => {
   return (
     <SCLayout>
-      <Header title={title} />
+      <Header location={location} title={title} />
       <SCContent>
         <SCMain>{children}</SCMain>
       </SCContent>

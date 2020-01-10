@@ -35,8 +35,9 @@ const CategoriesPage = ({
       siteMetadata: { title },
     },
   },
+  location,
 }) => (
-  <Layout title={title}>
+  <Layout location={location} title={title}>
     <Helmet title={title} />
     <div>
       <h1>分类</h1>

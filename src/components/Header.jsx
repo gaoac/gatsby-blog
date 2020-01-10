@@ -73,6 +73,14 @@ const SCMenuLi = styled.li`
     border-top: 2px solid ${theme['@primary-color']};
     border-bottom: 2px solid transparent;
   }
+  &.selected {
+    border-top: 2px solid ${theme['@primary-color']};
+    border-bottom: 2px solid transparent;
+    a {
+      color: ${theme['@primary-color']};
+      text-decoration: none;
+    }
+  }
   @media screen and (max-width: 500px) {
     list-style: none;
     margin: 0;
@@ -101,8 +109,10 @@ const SCLink = styled(Link)`
   }
 `;
 
-const Header = () => {
+const Header = ({ location }) => {
   const [menuVisible, setMenuVisible] = useState(false);
+  const { pathname } = location;
+  const targetKey = pathname.split('/')[1];
   const handleChangeMenuVisible = () => {
     setMenuVisible(!menuVisible);
   };
@@ -150,31 +160,31 @@ const Header = () => {
       </SCMobileMenu>
 
       <SCMenuUl show={menuVisible}>
-        <SCMenuLi>
+        <SCMenuLi className={targetKey === '' ? 'selected' : ''}>
           <SCLink to="/">
             <IconHome size={16} />
             <span>首页</span>
           </SCLink>
         </SCMenuLi>
-        <SCMenuLi>
+        <SCMenuLi className={targetKey === 'archives' ? 'selected' : ''}>
           <SCLink to="/archives">
             <IconArchive size={16} />
             <span>归档</span>
           </SCLink>
         </SCMenuLi>
-        <SCMenuLi>
+        <SCMenuLi className={targetKey === 'tags' ? 'selected' : ''}>
           <SCLink to="/tags">
             <IconTag size={16} />
             <span>标签</span>
           </SCLink>
         </SCMenuLi>
-        <SCMenuLi>
+        <SCMenuLi className={targetKey === 'categories' ? 'selected' : ''}>
           <SCLink to="/categories">
             <IconFolder size={16} />
             <span>分类</span>
           </SCLink>
         </SCMenuLi>
-        <SCMenuLi>
+        <SCMenuLi className={targetKey === 'about' ? 'selected' : ''}>
           <SCLink to="/about">
             <IconUser size={16} />
             <span>关于</span>

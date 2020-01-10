@@ -90,7 +90,7 @@ const BlogIndex = ({ data, location }) => {
   const onChange = page => {
     navigate(`blog/${page}`);
   };
-
+  debugger;
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />

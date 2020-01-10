@@ -34,7 +34,7 @@ const SCYear = styled.div`
 
 // Components
 
-const TagTemplate = ({ pageContext, data }) => {
+const TagTemplate = ({ pageContext, location, data }) => {
   const { tag } = pageContext;
   const {
     site: {
@@ -45,7 +45,7 @@ const TagTemplate = ({ pageContext, data }) => {
   const { nodes, totalCount } = allMarkdownRemark;
   const list = groupBy(nodes, item => dayjs(item.frontmatter.date).format('YYYY'));
   return (
-    <Layout title={siteTitle}>
+    <Layout location={location} title={siteTitle}>
       <SCTagHeader>
         {tag} <span>标签</span>
       </SCTagHeader>

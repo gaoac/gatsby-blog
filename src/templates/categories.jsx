@@ -34,7 +34,7 @@ const SCYear = styled.div`
 
 // Components
 
-const CategorieTemplate = ({ pageContext, data }) => {
+const CategorieTemplate = ({ pageContext, location, data }) => {
   const { categorie } = pageContext;
   const {
     site: {
@@ -45,7 +45,7 @@ const CategorieTemplate = ({ pageContext, data }) => {
   const { nodes, totalCount } = allMarkdownRemark;
   const list = groupBy(nodes, item => dayjs(item.frontmatter.date).format('YYYY'));
   return (
-    <Layout title={siteTitle}>
+    <Layout location={location} title={siteTitle}>
       <SCTagHeader>
         {categorie} <span>分类</span>
       </SCTagHeader>
