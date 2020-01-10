@@ -92,6 +92,11 @@ const SCMenuLi = styled.li`
     &:hover {
       border: 0;
     }
+    &.selected {
+      border-top: 0;
+      border-left: 2px solid ${theme['@primary-color']};
+      border-bottom: 2px solid transparent;
+    }
   }
 `;
 
