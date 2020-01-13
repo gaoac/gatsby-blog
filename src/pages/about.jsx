@@ -126,7 +126,7 @@ export default ({
           <li>
             其他相关博客：
             <a
-              href="https://gaoac.github.io/blog/"
+              href="https://gaoaccode.netlify.com"
               rel="noopener noreferrer"
               target="_blank"
               title="Hexo博客"
